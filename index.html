@@ -1,0 +1,1089 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102f50"><title>Conecta PDV | Painel, Vendas e Catálogo</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:#183149;background:#eef4f8}*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 12% 15%,#d8f2ea 0,transparent 32%),linear-gradient(125deg,#eef4fb,#e8f2f5)}.layout{max-width:960px;width:100%;display:grid;grid-template-columns:1fr 1fr;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 24px 70px #15314c20}.intro{background:linear-gradient(155deg,#092e52,#11689a);color:#fff;padding:54px 42px;min-height:530px;display:flex;flex-direction:column;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px;font-weight:850;font-size:25px;letter-spacing:-.6px}.brandmark{width:47px;height:47px;border-radius:13px;display:grid;place-items:center;background:#18b580;font-size:25px;color:#fff}.intro h1{font-size:40px;line-height:1.15;margin:0 0 14px;letter-spacing:-1px}.intro p{line-height:1.7;color:#d7e8f2;margin:0}.intro .note{font-size:13px;color:#cbe2ef}.main{padding:45px 40px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:1.5px;color:#078d68;text-transform:uppercase}.main h2{font-size:27px;letter-spacing:-.5px;color:#123454;margin:12px 0 5px}.sub{color:#657e91;font-size:14px;margin:0 0 30px}label{display:block;font-size:13px;font-weight:700;color:#39576d;margin:18px 0 7px}input{width:100%;border:1px solid #cbdbe6;border-radius:11px;padding:13px 14px;font-size:15px;background:#fcfeff;color:#123454}input:focus{outline:2px solid #69d6b2;outline-offset:1px;border-color:#0ba779}.btn{border:0;border-radius:11px;padding:14px 16px;cursor:pointer;font-size:15px;font-weight:800}.primary{width:100%;background:#0e956c;color:#fff;margin-top:23px}.primary:hover{background:#087e5b}.primary:disabled{opacity:.6;cursor:wait}.secondary{background:#e8f1f7;color:#154c70}.status{margin-top:18px;padding:12px 14px;border-radius:10px;background:#eff7fc;color:#235172;font-size:13px;line-height:1.5}.status.error{background:#ffefed;color:#a22d30}.status.success{background:#e5f8ed;color:#126b3b}.small{font-size:12px;color:#73899a;margin-top:16px}.settings{margin-top:24px;border-top:1px solid #e4edf3;padding-top:18px}.settings summary{cursor:pointer;color:#27688b;font-size:13px;font-weight:750}.settings p{font-size:12px;color:#71899c}.settings .btn{margin-top:14px;font-size:13px;padding:10px 13px}.hidden{display:none!important}.session{border:1px solid #d8eae3;border-radius:13px;padding:18px;background:#f4fcf8;margin-top:20px}.session strong{display:block;overflow-wrap:anywhere}.session p{font-size:13px;color:#567386}.session .btn{margin-top:9px}@media(max-width:750px){.layout{grid-template-columns:1fr;max-width:520px}.intro{padding:28px;min-height:180px}.intro h1{font-size:28px}.intro .note{display:none}.main{padding:32px 27px}.intro p{font-size:13px}}
+
+/* Painel Conecta PDV — primeira etapa */
+body.dashboard-mode{display:block;padding:0;background:#eff4f8}
+body.dashboard-mode .layout{display:none}
+.dashboard{min-height:100svh;display:grid;grid-template-columns:245px minmax(0,1fr);color:#15354b}
+.dash-side{background:linear-gradient(180deg,#092c4c,#08253e);color:#f0f8ff;padding:25px 15px;display:flex;flex-direction:column;gap:20px}
+.dash-brand{font-size:23px;font-weight:850;padding:0 12px}.dash-brand span{color:#38dfae}
+.dash-nav{display:flex;flex-direction:column;gap:6px}.dash-nav button{width:100%;text-align:left;background:none;color:#d5e6f4;padding:13px;border:0;border-radius:11px;cursor:pointer;font-size:14px;font-weight:700}.dash-nav button.selected,.dash-nav button:hover{background:#176797;color:white}
+.dash-side .note{margin-top:auto;color:#b4cfe1;padding:10px 12px;font-size:12px}
+.dash-main{padding:28px;min-width:0}.dash-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:26px}.dash-top h1{margin:4px 0;font-size:27px;color:#0c3656}.dash-top p{margin:0;color:#637e90}.dash-top button{border:0;border-radius:9px;padding:11px 16px;font-weight:800;cursor:pointer;background:#dcebf2;color:#174769}
+.dash-status{padding:13px 16px;border-radius:11px;background:#e5f2fa;color:#22506d;margin:0 0 17px}.dash-status.error{background:#fff0ed;color:#a22d30}.dash-status.success{background:#e1f6ed;color:#126b3b}
+.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.metric{background:#fff;border:1px solid #deebf2;padding:21px;border-radius:14px;box-shadow:0 5px 16px #0e33500a}.metric b{display:block;font-size:28px;color:#0f527a}.metric span{color:#657f92;font-size:13px;font-weight:700}
+.dash-content{background:#fff;border:1px solid #dae8f1;border-radius:15px;padding:24px;margin-top:18px}.dash-content h2{margin:0 0 10px;color:#103d5e}.dash-content p{color:#607b8d;line-height:1.6}.quick-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}.quick-links button{background:#edf7f4;border:1px solid #cce8dd;color:#126044;padding:18px 12px;text-align:left;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer}.quick-links button small{display:block;margin-top:7px;color:#618376;font-size:12px;font-weight:500}
+.dash-data{border:1px solid #e2edf3;border-radius:11px;padding:13px 16px;margin-top:12px;background:#fbfdff;overflow-wrap:anywhere}.dash-data strong{color:#103d5e}.dash-muted{font-size:12px;color:#718b9c}.dashboard.hidden{display:none!important}
+@media(max-width:900px){.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.dashboard{grid-template-columns:1fr}.dash-side{padding:15px;gap:10px}.dash-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.dash-nav button{padding:9px 5px;font-size:11px;text-align:center}.dash-side .note{display:none}.dash-main{padding:15px}.dash-top h1{font-size:22px}.metric{padding:16px}.metric b{font-size:23px}.quick-links{grid-template-columns:1fr 1fr}}
+
+/* Gestão de produtos — Conecta PDV */
+.product-bar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.product-bar h2{margin:0}.pdv-primary{background:#0e956c;color:white;border:0;border-radius:10px;padding:12px 15px;font-weight:800;cursor:pointer}.pdv-secondary{background:#e8f1f7;color:#154c70;border:0;border-radius:10px;padding:10px 13px;font-weight:700;cursor:pointer}.pdv-danger{background:#fff1ef;color:#ab3030;border:0;border-radius:10px;padding:10px 13px;font-weight:700;cursor:pointer}.pdv-primary:disabled,.pdv-secondary:disabled,.pdv-danger:disabled{opacity:.6;cursor:wait}.pdv-filter{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:14px 0}.pdv-filter input{max-width:420px;flex:1;min-width:190px}.pdv-table-wrap{overflow-x:auto;border:1px solid #dae8f1;border-radius:12px}.pdv-table{border-collapse:collapse;min-width:790px;width:100%;font-size:13px}.pdv-table th,.pdv-table td{text-align:left;padding:13px;border-bottom:1px solid #e6eef4}.pdv-table th{background:#f3f8fc;color:#2a526e}.pdv-table td:last-child{white-space:nowrap}.pdv-table tbody tr:last-child td{border-bottom:0}.pdv-chip{display:inline-block;border-radius:20px;background:#e5f8ed;color:#126b3b;font-size:11px;font-weight:700;padding:4px 8px}.pdv-chip.low{background:#fff1d9;color:#946009}.pdv-chip.off{background:#f3f4f6;color:#667788}.pdv-form{border:1px solid #cfe7de;background:#f7fffb;border-radius:13px;padding:18px;margin:15px 0}.pdv-form h3{margin:0 0 8px;color:#0b4960}.pdv-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 14px}.pdv-form-grid label{margin:11px 0 4px}.pdv-form-grid input{margin-top:5px}.pdv-form-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.pdv-alert{font-size:13px;line-height:1.5;background:#edf7fc;border-radius:9px;padding:11px 13px;color:#235172;margin:12px 0}.pdv-alert.error{background:#fff0ed;color:#aa3030}.pdv-alert.success{background:#e5f8ed;color:#126b3b}.pdv-actions{display:flex;gap:6px}.pdv-actions button{font-size:12px;padding:7px 9px}.pdv-tiny{font-size:12px;color:#607b8d}.pdv-empty{text-align:center;padding:25px;color:#607b8d}.pdv-stats{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}.pdv-stats span{background:#eaf4f9;color:#1c526f;padding:7px 12px;border-radius:9px;font-size:12px;font-weight:700}@media(max-width:700px){.pdv-form-grid{grid-template-columns:1fr 1fr}}@media(max-width:430px){.pdv-form-grid{grid-template-columns:1fr}.product-bar{align-items:flex-start}}
+
+/* Frente de caixa: dados reais por RPC Supabase (fase de testes) */
+.sale-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:16px}.sale-card{border:1px solid #dae8f1;border-radius:13px;background:#fff;padding:18px;min-width:0}.sale-card h3{margin:0 0 12px;color:#103d5e}.sale-products{max-height:330px;overflow:auto;border:1px solid #e5edf2;border-radius:9px}.sale-result{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px;border-bottom:1px solid #e5edf2}.sale-result:last-child{border:0}.sale-result small{display:block;color:#617c91}.sale-result button,.sale-row button{border:0;border-radius:8px;background:#e7f5ee;color:#126b47;padding:8px 11px;font-weight:750;cursor:pointer}.sale-row{display:grid;grid-template-columns:minmax(0,1fr) 78px 96px 36px;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid #e8edf2}.sale-row input{padding:8px}.sale-row button{padding:7px;background:#fff0ee;color:#a52b2b}.sale-row small{display:block;color:#68859a}.sale-total{font-size:25px;color:#0c6547;font-weight:850;text-align:right}.sale-pay-row{display:grid;grid-template-columns:minmax(0,1fr) 130px 37px;gap:7px;margin:9px 0;align-items:center}.sale-pay-row select,.sale-pay-row input{width:100%;padding:10px;border:1px solid #cbdbe6;border-radius:9px;background:#fff}.sale-pay-row button{border:0;border-radius:8px;background:#fff0ee;color:#a52b2b;font-weight:900;padding:10px;cursor:pointer}.sale-summary{background:#eff8f5;border-radius:10px;padding:14px;margin:14px 0}.sale-summary>div{display:flex;justify-content:space-between;gap:10px;margin:5px 0}.sale-success{background:#e8f8ed;color:#135938;border:1px solid #b9e4c9;border-radius:12px;padding:14px;margin:13px 0;overflow-wrap:anywhere}.sale-actions{display:flex;gap:10px;flex-wrap:wrap}.sale-actions button{flex:1;min-width:130px}.sale-test-note{border-left:4px solid #e9af42;background:#fff8e8;padding:12px 14px;font-size:13px;line-height:1.5;margin:12px 0;color:#775211}@media(max-width:1060px){.sale-layout{grid-template-columns:1fr}}@media(max-width:490px){.sale-card{padding:12px}.sale-row{grid-template-columns:minmax(0,1fr) 62px 80px 30px;gap:4px;font-size:12px}.sale-pay-row{grid-template-columns:minmax(0,1fr) 100px 32px;gap:4px}}
+.history-filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:18px 0}.history-filters label{margin:0;min-width:175px;flex:1}.history-filters input{margin-top:5px}.history-filters button{min-height:46px}.history-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.history-metrics>div{background:#f3f8fc;border:1px solid #e0edf5;padding:14px;border-radius:12px}.history-metrics small{display:block;font-size:12px;color:#617b8e}.history-metrics strong{display:block;font-size:21px;color:#103d5e;margin-top:4px}.history-list{display:grid;gap:10px}.history-entry{border:1px solid #dae7f0;border-radius:12px;padding:15px;background:#fff}.history-heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}.history-heading strong{display:block;color:#103d5e}.history-heading small{font-size:12px;color:#638092}.history-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.history-detail{padding:12px 0 0;margin-top:12px;border-top:1px solid #e7eef3}.history-detail h4{margin:10px 0 5px;color:#1d526d}.history-detail-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid #f0f3f6;font-size:13px}.history-detail-row span:last-child{text-align:right}.history-entry .pdv-secondary{font-size:12px;padding:8px 11px}@media(max-width:650px){.history-metrics{grid-template-columns:1fr 1fr}.history-metrics strong{font-size:18px}.history-filters button{width:100%}}
+
+/* Conecta PDV — gestão de caixa (fase de testes) */
+.cash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0}
+.cash-panel{border:1px solid #d9e8ef;border-radius:13px;background:#fbfdff;padding:18px}
+.cash-panel h3{margin:0 0 12px;color:#103d5e}
+.cash-panel label{margin:10px 0 6px}
+.cash-panel select,.cash-panel textarea{display:block;width:100%;border:1px solid #cbdbe6;border-radius:10px;padding:12px;background:white;color:#183149;font:inherit;margin-top:5px}
+.cash-panel .pdv-primary,.cash-panel .pdv-secondary{margin-top:12px}
+.cash-rows{display:grid;gap:8px;margin-top:10px}
+.cash-row{display:flex;gap:10px;justify-content:space-between;border-bottom:1px solid #e2ebf1;padding:8px 0}
+.cash-row span{overflow-wrap:anywhere}
+.cash-row strong{text-align:right}
+.cash-summary{background:#edf7f4;border:1px solid #d1e9de;border-radius:12px;padding:14px;margin:12px 0}
+.cash-flag{color:#8c5213;font-size:12px}
+@media(max-width:720px){.cash-grid{grid-template-columns:1fr}}
+
+/* Catálogo online — pedido enviado ao WhatsApp, sem processamento de pagamentos. */
+.catalog-banner{border:1px solid #f4d391;border-radius:12px;padding:14px 16px;background:#fff9e9;color:#755118;margin:12px 0;line-height:1.6;font-size:13px}
+.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin:15px 0}
+.catalog-card{border:1px solid #dbe8f0;background:#fff;border-radius:14px;padding:16px;min-width:0;box-shadow:0 5px 12px #1a43630a}
+.catalog-card .catalog-glyph{font-size:34px;background:#eaf7f2;display:grid;place-items:center;height:82px;border-radius:10px;margin-bottom:10px}
+.catalog-card strong{display:block;color:#153d56;overflow-wrap:anywhere}.catalog-card small{display:block;color:#6b8494;margin:5px 0}.catalog-card .price{display:block;font-size:21px;color:#0b7956;font-weight:800;margin:8px 0}
+.catalog-card button{width:100%}.catalog-input-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.catalog-input-grid label{margin:6px 0}.catalog-input-grid input{margin-top:5px}.catalog-preview-cart{border:1px solid #daebe5;border-radius:12px;background:#f7fcfa;padding:16px;margin-top:13px}
+.public-catalog{max-width:1050px;margin:auto;background:#fff;padding:24px;border-radius:20px;box-shadow:0 12px 40px #15314c20;width:100%}.public-catalog h1{margin:5px 0;color:#103d5e}.public-catalog .public-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.public-catalog .public-top a{color:#116a89}
+body.public-catalog-mode{display:block;padding:24px}.public-catalog-mode .layout,.public-catalog-mode .dashboard{display:none!important}
+@media(max-width:700px){.catalog-input-grid{grid-template-columns:1fr}.public-catalog{padding:17px}}
+/* Pedidos pelo WhatsApp */
+.catalog-headline{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:16px}
+.catalog-headline h2{margin:0;font-size:20px;color:#103d5e}
+.catalog-cart-tools{display:flex;align-items:center;gap:9px;flex:none}
+.catalog-cart-tools button{border:0;border-radius:8px;background:#e7f5ee;color:#126b47;padding:7px 12px;font-weight:800;cursor:pointer}
+.public-catalog #sendWhatsappOrder{margin-top:16px;width:100%;font-size:16px}
+@media(max-width:550px){.catalog-headline input{max-width:none!important}.public-catalog .sale-result{align-items:flex-start}}
+
+.pdv-photo{width:46px;height:46px;object-fit:cover;border-radius:9px;border:1px solid #dbe8f0;background:#edf3f7;flex:none}
+.pdv-photo-placeholder{width:46px;height:46px;border-radius:9px;background:#eaf4f9;color:#7b97a8;display:grid;place-items:center;flex:none;font-size:22px}
+.pdv-photo-pair{display:flex;align-items:center;gap:9px;min-width:0}
+.pdv-photo-pair>div:last-child{min-width:0;overflow-wrap:anywhere}
+#prodImagePreview{width:90px;height:90px;object-fit:cover;border:1px solid #dbe8f0;border-radius:11px;background:#f2f6f8;margin-top:8px}
+/* Cupom não fiscal — impressão opcional no navegador */
+.receipt-dialog{border:0;border-radius:17px;padding:0;width:min(440px,calc(100% - 28px));max-height:90vh;box-shadow:0 25px 80px #001c3560;color:#183149}
+.receipt-dialog::backdrop{background:#071e33a8}
+.receipt-dialog-inner{padding:25px}.receipt-dialog h2{margin:0 0 8px;color:#103d5e;font-size:22px}
+.receipt-dialog p{color:#607b8d;line-height:1.5}.receipt-controls{display:flex;gap:11px;flex-wrap:wrap;margin-top:18px}
+.receipt-controls button{flex:1;min-width:130px}.receipt-size{width:100%;padding:11px;border:1px solid #cbdbe6;border-radius:9px;background:white;color:#183149}
+/* Relatórios de vendas — leitura somente */
+.report-toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:end}.report-toolbar label{margin:0;flex:1;min-width:155px}.report-toolbar label input{margin-top:5px}.report-buttons{display:flex;gap:8px;flex-wrap:wrap}.report-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:18px 0}.report-stat{padding:15px;border-radius:12px;background:#f2f8fb;border:1px solid #dceaf2}.report-stat small{display:block;color:#617b8e;font-size:12px}.report-stat strong{display:block;font-size:21px;color:#103d5e;margin-top:7px}.report-warning{font-size:13px;background:#fff8e8;border:1px solid #f1d79e;border-radius:10px;padding:12px;margin:12px 0;color:#795414}.report-list{width:100%;border-collapse:collapse;font-size:13px}.report-list th,.report-list td{padding:10px;text-align:left;border-bottom:1px solid #e4edf3}.report-list th{background:#f3f8fc}.report-list-wrap{overflow:auto}@media(max-width:750px){.report-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:430px){.report-stat-grid{grid-template-columns:1fr}}
+ .report-tabs{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0}.report-tabs button{min-width:155px}
+@media print{.report-tabs{display:none!important}#salesReportPanel.hidden,#stockReportPanel.hidden,#financialReportPanel.hidden{display:none!important}body.dashboard-mode{background:white!important}.dashboard{display:block!important}.dash-side,.dash-top,.dash-status,.report-toolbar,#reportNotice,#stockReportNotice,#financialReportNotice,.dash-content:not(#reportsSection){display:none!important}#reportsSection{display:block!important;border:0!important;margin:0!important;padding:0!important}.dash-main{padding:0!important}.report-stat-grid{grid-template-columns:repeat(4,1fr)!important}.report-warning{color:#333!important}.report-list{font-size:11px!important}}
+</style>
+</head>
+<body>
+<div class="layout">
+<section class="intro"><div class="brand"><span class="brandmark">▦</span> Conecta PDV</div><div><h1>Seu negócio mais conectado.</h1><p>Um ponto de partida para organizar o acesso à sua loja, com a autenticação do Supabase.</p></div><div class="note">Acesso por e-mail e senha • Versão inicial de testes</div></section>
+<main class="main">
+<div class="eyebrow">Área da loja</div><h2>Bem-vindo de volta!</h2><p class="sub">Entre com a conta que você cadastrou no Supabase Authentication.</p>
+<form id="loginForm"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" placeholder="seuemail@exemplo.com" required><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required minlength="6"><button class="btn primary" id="loginButton" type="submit">Entrar no Conecta PDV</button></form>
+<div id="signedIn" class="session hidden"><strong id="signedEmail"></strong><p>Login autenticado! A próxima etapa será construir o painel e verificar as permissões da loja no banco de dados.</p><button class="btn secondary" id="logoutButton" type="button">Sair da conta</button></div>
+<div id="status" class="status" role="status" aria-live="polite">A verificar configuração de acesso…</div>
+<details class="settings" id="configDetails"><summary>Configuração inicial do Supabase</summary><p>Insira apenas a chave pública (publishable). Nunca use chaves secretas ou service_role nesta página. A chave ficará guardada apenas neste navegador.</p><label for="projectUrl">Endereço do projeto</label><input id="projectUrl" type="url" value="https://zfcwmakztfwtmocgllac.supabase.co" spellcheck="false"><label for="publicKey">Publishable key</label><input id="publicKey" type="text" placeholder="sb_publishable_..." spellcheck="false" autocomplete="off"><button class="btn secondary" id="saveConfig" type="button">Guardar ligação</button></details>
+<p class="small">Este ficheiro testa a autenticação. Ainda não é um PDV completo nem substitui as regras de segurança (RLS) no Supabase.</p>
+</main></div>
+
+<div class="dashboard hidden" id="dashboard" aria-label="Painel do Conecta PDV">
+  <aside class="dash-side"><div class="dash-brand">▦ Conecta <span>PDV</span></div>
+    <nav class="dash-nav" id="dashNav" aria-label="Menu da loja">
+      <button class="selected" data-view="inicio">⌂ Início</button>
+      <button data-view="produtos">▣ Produtos</button>
+      <button data-view="estoque">▤ Estoque</button>
+      <button data-view="vendas">◈ Vendas</button>
+      <button data-view="historico">◷ Histórico de vendas</button>
+      <button data-view="caixa">▥ Caixa</button>
+      <button data-view="receber">↙ Contas a receber</button>
+      <button data-view="pagar">↗ Contas a pagar</button>
+       <!-- Catálogo online oculto temporariamente no menu; funcionalidade preservada para reativação. -->
+       <button data-view="pedidos">▤ Pedidos WhatsApp</button>
+      <button data-view="funcionarios">♙ Funcionários</button>
+      <button data-view="relatorios">▥ Relatórios</button>
+       <button data-view="integracoes">⚙ Integrações</button>
+    </nav>
+    <div class="note">Conecta PDV • Vendas presenciais e pedidos via WhatsApp</div>
+  </aside>
+  <main class="dash-main">
+    <header class="dash-top"><div><div class="eyebrow">Painel da loja</div><h1 id="dashTitle">Visão geral</h1><p id="dashSubtitle">Carregando dados da loja…</p></div><button id="dashboardLogout" type="button">Sair</button></header>
+    <div id="dashStatus" class="dash-status" role="status" aria-live="polite">Verificando acesso ao banco de dados…</div>
+    <div id="dashHome" class="hidden">
+      <div class="metric-grid"><div class="metric"><b id="dashShopCount">—</b><span>Lojas acessíveis</span></div><div class="metric"><b id="dashProductCount">—</b><span>Produtos cadastrados</span></div><div class="metric"><b>—</b><span>Vendas (em breve)</span></div><div class="metric"><b>—</b><span>Saldo de caixa (em breve)</span></div></div>
+      <section class="dash-content"><h2>Bem-vindo ao Conecta PDV!</h2><p>A conta está autenticada. Este painel verifica o vínculo com a loja no Supabase antes de mostrar funcionalidades administrativas.</p><div id="shopDetail" class="dash-data"></div><div id="employeeDetail" class="dash-data"></div>
+      <div class="quick-links"><button data-jump="produtos">Cadastrar produtos<small>Próximo módulo</small></button><button data-jump="vendas">Frente de caixa<small>Próximo módulo</small></button><button data-jump="funcionarios">Equipe da loja<small>Verificar acesso</small></button></div></section>
+    </div>
+    <section class="dash-content hidden" id="productSection">
+      <div class="product-bar"><div><h2>Cadastro de Produtos</h2><div class="pdv-tiny">Dados salvos no Supabase e separados por loja.</div></div><button class="pdv-primary" id="newProductButton" type="button">+ Novo produto</button></div>
+      <div class="pdv-alert hidden" id="productNotice" role="status" aria-live="polite"></div>
+      <form id="productForm" class="pdv-form hidden" autocomplete="off">
+        <h3 id="productFormTitle">Novo produto</h3><input type="hidden" id="prodId">
+        <div class="pdv-form-grid">
+          <label>Nome do produto *<input id="prodName" type="text" maxlength="160" required placeholder="Ex.: Cabo USB-C"></label>
+          <label>Código de barras<input id="prodBarcode" type="text" maxlength="100" placeholder="Código ou referência"></label>
+          <label>Categoria<input id="prodCategory" type="text" maxlength="100" placeholder="Ex.: Acessórios"></label>
+          <label>Preço de custo (R$) *<input id="prodCost" type="number" min="0" step="0.01" value="0" required></label>
+          <label>Preço de venda (R$) *<input id="prodPrice" type="number" min="0" step="0.01" value="0" required></label>
+          <label>Quantidade em estoque *<input id="prodQty" type="number" min="0" step="1" value="0" required></label>
+          <label>Estoque mínimo *<input id="prodMin" type="number" min="0" step="1" value="0" required></label>
+          <div style="grid-column:1/-1"><label for="prodImageFile">Foto do produto (opcional)</label><input id="prodImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif" style="background:white"><p class="pdv-tiny">Escolha uma foto da galeria ou do computador (JPG, PNG, WebP ou GIF, até 5 MB). Sem precisar de link.</p><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><img id="prodImagePreview" class="hidden" alt="Prévia da foto do produto"><button id="prodImageRemove" class="pdv-secondary hidden" type="button">Remover foto</button></div></div>
+          <label>Ativo<select id="prodActive" style="width:100%;margin-top:5px;padding:13px;border:1px solid #cbdbe6;border-radius:11px"><option value="true">Sim</option><option value="false">Não</option></select></label>
+        </div>
+        <div class="pdv-form-buttons"><button class="pdv-primary" id="saveProductButton" type="submit">Salvar produto</button><button class="pdv-secondary" id="cancelProductButton" type="button">Cancelar</button></div>
+      </form>
+      <div class="pdv-filter"><input id="productSearch" type="search" placeholder="Buscar por nome, código ou categoria"><button class="pdv-secondary" id="reloadProductsButton" type="button">Atualizar lista</button></div>
+      <div class="pdv-stats"><span id="productTotal">0 produtos</span><span id="productLow">0 com estoque baixo</span></div>
+      <div class="pdv-table-wrap"><table class="pdv-table"><thead><tr><th>Foto / Produto</th><th>Código</th><th>Categoria</th><th>Preço de venda</th><th>Estoque</th><th>Situação</th><th>Ações</th></tr></thead><tbody id="productRows"><tr><td colspan="7" class="pdv-empty">Aguarde o carregamento dos produtos.</td></tr></tbody></table></div>
+      <p class="pdv-tiny">A quantidade pode ser alterada aqui durante a fase de testes. Antes de ativar vendas reais, criaremos movimentações de estoque e permissões específicas por funcionário.</p>
+    </section>
+
+    <section class="dash-content hidden" id="salesSection">
+      <div class="product-bar"><div><h2>Frente de caixa</h2><div class="pdv-tiny">Vendas com pagamentos divididos e baixa de estoque via Supabase.</div></div><button class="pdv-secondary" id="saleRefresh" type="button">Atualizar produtos</button></div>
+      <div class="sale-test-note"><strong>PDV presencial.</strong> Registre pagamentos em dinheiro, PIX, cartão ou transferência após confirmar o recebimento na loja. O sistema não consulta bancos automaticamente. Ao finalizar, a venda e a baixa do estoque são gravadas no Supabase.</div>
+      <div class="pdv-alert hidden" id="saleNotice" role="status" aria-live="polite"></div>
+      <div id="saleResult" class="sale-success hidden" role="status"></div>
+      <div class="sale-layout">
+        <div class="sale-card"><h3>Escolher produtos</h3><input id="saleSearch" type="search" placeholder="Pesquisar nome ou código de barras" aria-label="Pesquisar produtos"><div class="sale-products" id="saleProducts" style="margin-top:12px"><div class="pdv-empty">A carregar produtos…</div></div></div>
+        <div class="sale-card"><h3>Carrinho da venda</h3><div id="saleCart"><div class="pdv-empty">Adicione um produto.</div></div><div style="margin-top:12px;text-align:right"><span class="pdv-tiny">Total</span><div class="sale-total" id="saleTotal">R$ 0,00</div></div></div>
+        <div class="sale-card"><h3>Pagamentos</h3><p class="pdv-tiny">Pode dividir a compra entre PIX, dinheiro, crédito, débito ou transferência. Os valores devem somar exatamente o total.</p><div id="salePayments"></div><button class="pdv-secondary" id="addPayment" type="button">+ Adicionar pagamento</button><div class="sale-summary"><div><span>Total da venda</span><strong id="payTotal">R$ 0,00</strong></div><div><span>Total informado</span><strong id="payReceived">R$ 0,00</strong></div><div><span>Falta pagar</span><strong id="payRemaining">R$ 0,00</strong></div></div></div>
+        <div class="sale-card"><h3>Concluir</h3><p class="pdv-tiny">O servidor confere preços, pagamentos e estoque antes de concluir a venda numa única operação.</p><div class="sale-actions"><button class="pdv-secondary" id="clearSale" type="button">Limpar carrinho</button><button class="pdv-primary" id="finalizeSale" type="button">Confirmar venda presencial</button></div><p class="pdv-tiny">Não clique duas vezes. Se houver erro de conexão após enviar, verifique no Supabase antes de tentar novamente para evitar duplicação.</p></div>
+      </div>
+    </section>
+    <section class="dash-content hidden" id="historySection">
+      <div class="product-bar"><div><h2>Histórico de Vendas</h2><div class="pdv-tiny">Consulte as vendas concluídas e os pagamentos desta loja no Supabase.</div></div><button class="pdv-secondary" id="reloadHistory" type="button">Atualizar histórico</button></div>
+      <div class="pdv-alert hidden" id="historyNotice" role="status" aria-live="polite"></div>
+      <div class="history-filters">
+        <label>Data inicial <input id="historyStart" type="date"></label>
+        <label>Data final <input id="historyEnd" type="date"></label>
+        <button class="pdv-primary" id="historyFilter" type="button">Pesquisar</button>
+      </div>
+      <div class="history-metrics">
+        <div><small>Vendas concluídas no período</small><strong id="historyCount">—</strong></div>
+        <div><small>Total vendido no período</small><strong id="historyGross">—</strong></div>
+        <div><small>PIX</small><strong id="historyPix">—</strong></div>
+        <div><small>Dinheiro</small><strong id="historyCash">—</strong></div>
+      </div>
+      <p class="pdv-tiny">Exibindo até 200 vendas por pesquisa. Para períodos com mais vendas, reduza as datas. Valores referentes às vendas carregadas; vendas canceladas não entram nos totais.</p>
+      <div id="historyList" class="history-list"><div class="pdv-empty">Selecione um período e clique em Pesquisar.</div></div>
+    </section>
+
+    <section class="dash-content hidden" id="reportsSection">
+      <div class="product-bar"><div><h2>Relatórios</h2><div class="pdv-tiny">Vendas, estoque e financeiro da loja • consultas somente leitura</div></div></div>
+      <div class="report-tabs" role="group" aria-label="Tipo de relatório"><button id="reportTabSales" class="pdv-primary" type="button" aria-pressed="true">Relatório de vendas</button><button id="reportTabStock" class="pdv-secondary" type="button" aria-pressed="false">Relatório de estoque</button><button id="reportTabFinance" class="pdv-secondary" type="button" aria-pressed="false">Relatório financeiro</button></div>
+      <div id="salesReportPanel">
+      <div class="report-toolbar">
+       <label>Data inicial<input id="reportStart" type="date"></label>
+       <label>Data final<input id="reportEnd" type="date"></label>
+       <div class="report-buttons"><button id="reportLoad" class="pdv-primary" type="button">Gerar relatório</button><button id="reportCSV" class="pdv-secondary" type="button" disabled>Exportar CSV</button><button id="reportPrint" class="pdv-secondary" type="button" disabled>Imprimir</button></div>
+      </div>
+      <div id="reportNotice" class="pdv-alert hidden" role="status" aria-live="polite"></div>
+      <div class="report-stat-grid">
+        <div class="report-stat"><small>Vendas concluídas</small><strong id="reportCount">—</strong></div>
+        <div class="report-stat"><small>Faturamento bruto</small><strong id="reportRevenue">—</strong></div>
+        <div class="report-stat"><small>Custo estimado dos produtos</small><strong id="reportCost">—</strong></div>
+        <div class="report-stat"><small>Margem bruta estimada (R$)</small><strong id="reportProfit">—</strong></div>
+      </div>
+      <p class="report-warning">A margem é estimada usando os <strong>custos atuais</strong> dos produtos cadastrados. Não é lucro líquido: não inclui taxas, impostos, despesas ou mudanças históricas de custo. Se algum produto vendido não tiver cadastro/custo atual acessível, o cálculo de margem ficará indisponível. O relatório consulta no máximo 200 vendas por período e avisa quando esse limite for atingido.</p>
+      <div class="report-list-wrap"><table class="report-list"><thead><tr><th>Data</th><th>Venda</th><th>Faturamento</th><th>Custo estimado</th><th>Margem estimada</th></tr></thead><tbody id="reportRows"><tr><td colspan="5" class="pdv-empty">Selecione um período e gere o relatório.</td></tr></tbody></table></div>
+      </div>
+      <div id="stockReportPanel" class="hidden">
+        <div class="report-toolbar"><div style="flex:1"><strong>Posição atual do estoque</strong><p class="pdv-tiny">Quantidades e preços cadastrados agora, sem movimentar o estoque.</p></div>
+          <div class="report-buttons"><button id="stockReportLoad" class="pdv-primary" type="button">Atualizar relatório</button><button id="stockReportCSV" class="pdv-secondary" type="button" disabled>Exportar CSV</button><button id="stockReportPrint" class="pdv-secondary" type="button" disabled>Imprimir</button></div>
+        </div>
+        <div id="stockReportNotice" class="pdv-alert hidden" role="status" aria-live="polite"></div>
+        <div class="report-stat-grid"><div class="report-stat"><small>Produtos cadastrados</small><strong id="stockReportCount">—</strong></div><div class="report-stat"><small>Unidades em estoque</small><strong id="stockReportUnits">—</strong></div><div class="report-stat"><small>Sem estoque / estoque baixo</small><strong id="stockReportLow">—</strong></div><div class="report-stat"><small>Custo total estimado</small><strong id="stockReportCost">—</strong></div><div class="report-stat"><small>Valor potencial de venda</small><strong id="stockReportValue">—</strong></div><div class="report-stat"><small>Margem bruta potencial</small><strong id="stockReportMargin">—</strong></div></div>
+        <p class="report-warning">Valores baseados nas <strong>quantidades e preços atuais</strong> cadastrados, incluindo produtos inativos. Não são faturamento realizado, lucro líquido nem posição histórica. A quantidade exibida pode incluir unidades reservadas no catálogo online; confirme as reservas antes de vender. Os totais excluem produtos com preço ou quantidade inválidos e o relatório sinaliza esses registros.</p>
+        <div class="report-list-wrap"><table class="report-list"><thead><tr><th>Produto</th><th>Código</th><th>Categoria</th><th>Unidades</th><th>Mínimo</th><th>Status</th><th>Custo unit.</th><th>Venda unit.</th><th>Custo total</th><th>Valor potencial</th></tr></thead><tbody id="stockReportRows"><tr><td colspan="10" class="pdv-empty">Clique em Atualizar relatório.</td></tr></tbody></table></div>
+      </div>
+      <div id="financialReportPanel" class="hidden">
+        <div class="report-toolbar">
+          <div style="flex:1"><strong>Posição financeira das contas</strong><p class="pdv-tiny">Saldo atual por vencimento • não altera pagamentos nem caixa.</p></div>
+          <label>Vencimento inicial (opcional)<input id="financialReportStart" type="date"></label>
+          <label>Vencimento final (opcional)<input id="financialReportEnd" type="date"></label>
+          <div class="report-buttons"><button id="financialReportLoad" class="pdv-primary" type="button">Gerar relatório</button><button id="financialReportCSV" class="pdv-secondary" type="button" disabled>Exportar CSV</button><button id="financialReportPrint" class="pdv-secondary" type="button" disabled>Imprimir</button></div>
+        </div>
+        <div id="financialReportNotice" class="pdv-alert hidden" role="status" aria-live="polite"></div>
+        <div class="report-stat-grid">
+          <div class="report-stat"><small>A receber em aberto</small><strong id="financialReceivable">—</strong></div>
+          <div class="report-stat"><small>A pagar em aberto</small><strong id="financialPayable">—</strong></div>
+          <div class="report-stat"><small>Recebimentos vencidos</small><strong id="financialReceiveOverdue">—</strong></div>
+          <div class="report-stat"><small>Pagamentos vencidos</small><strong id="financialPayOverdue">—</strong></div>
+          <div class="report-stat"><small>Recebido nessas contas</small><strong id="financialReceived">—</strong></div>
+          <div class="report-stat"><small>Pago nessas contas</small><strong id="financialPaid">—</strong></div>
+          <div class="report-stat"><small>Saldo previsto em aberto</small><strong id="financialForecast">—</strong></div>
+          <div class="report-stat"><small>Contas no filtro</small><strong id="financialCount">—</strong></div>
+        </div>
+        <p class="report-warning">O filtro considera a <strong>data de vencimento</strong>, não a data de recebimento/pagamento. Valores recebidos e pagos são as baixas acumuladas das contas filtradas, não um fluxo de caixa do período. O saldo previsto é <strong>a receber em aberto menos a pagar em aberto</strong>: não representa dinheiro em caixa, lucro ou saldo bancário. Somente contas cadastradas no módulo financeiro entram nesta visão; não inclui automaticamente todas as vendas e compras.</p>
+        <div class="report-list-wrap"><table class="report-list"><thead><tr><th>Tipo</th><th>Vencimento</th><th>Cliente / fornecedor</th><th>Descrição</th><th>Parcela</th><th>Total</th><th>Baixado</th><th>Em aberto</th><th>Situação</th></tr></thead><tbody id="financialReportRows"><tr><td colspan="9" class="pdv-empty">Clique em Gerar relatório.</td></tr></tbody></table></div>
+      </div>
+    </section>
+    <section class="dash-content hidden" id="cashSection">
+      <div class="product-bar"><div><h2>Controle de Caixa</h2><div class="pdv-tiny">Abertura, entradas, saídas e fechamento vinculados ao Supabase.</div></div><button class="pdv-secondary" id="cashReload" type="button">Atualizar caixa</button></div>
+      <div class="sale-test-note"><strong>Ambiente de testes.</strong> Abrir, movimentar e fechar o caixa grava dados reais no Supabase. A conferência de valores é informativa; ainda vamos validar os cálculos e as regras financeiras para produção.</div>
+      <div id="cashNotice" class="pdv-alert hidden" role="status" aria-live="polite"></div>
+      <div id="cashClosed" class="cash-panel hidden"><h3>Não há caixa aberto</h3><p class="pdv-tiny">Abra um caixa para começar o turno. Apenas um caixa pode ficar aberto por loja.</p><form id="cashOpenForm"><label>Saldo inicial em dinheiro (R$)<input id="cashInitial" type="number" min="0" step="0.01" value="0.00" required></label><button id="cashOpenButton" type="submit" class="pdv-primary">Abrir Caixa</button></form></div>
+      <div id="cashOpened" class="hidden">
+        <div class="cash-summary"><strong id="cashHeading">Caixa aberto</strong><div class="cash-rows"><div class="cash-row"><span>Saldo inicial</span><strong id="cashStartValue">—</strong></div><div class="cash-row"><span>Aberto em</span><strong id="cashStartedAt">—</strong></div><div class="cash-row"><span>Recebimentos em dinheiro vinculados a este caixa</span><strong id="cashSalesValue">—</strong></div><div class="cash-row"><span>Entradas manuais</span><strong id="cashInValue">—</strong></div><div class="cash-row"><span>Saídas manuais</span><strong id="cashOutValue">—</strong></div><div class="cash-row"><span>Saldo esperado em dinheiro (estimativa)</span><strong id="cashExpectedValue">—</strong></div></div><p id="cashCoverage" class="cash-flag">A calcular...</p></div>
+        <div class="cash-grid">
+          <div class="cash-panel"><h3>Entrada ou saída</h3><form id="cashMoveForm"><label>Tipo<select id="cashMoveType"><option value="entrada">Entrada de dinheiro</option><option value="saida">Saída de dinheiro</option></select></label><label>Descrição<input id="cashMoveDescription" maxlength="200" required placeholder="Ex.: reforço de troco"></label><label>Valor (R$)<input id="cashMoveValue" type="number" min="0.01" step="0.01" required></label><button class="pdv-primary" id="cashMoveButton" type="submit">Registrar movimentação</button></form></div>
+          <div class="cash-panel"><h3>Fechar caixa</h3><p class="pdv-tiny">Conte o dinheiro físico. O valor será guardado como saldo final informado. Confira os registros antes de encerrar.</p><form id="cashCloseForm"><label>Dinheiro contado (R$)<input id="cashFinalValue" type="number" min="0" step="0.01" required></label><button class="pdv-danger" id="cashCloseButton" type="submit">Fechar Caixa</button></form></div>
+        </div><div class="cash-panel"><h3>Movimentações manuais</h3><div id="cashMovements" class="cash-rows"></div></div>
+      </div>
+    </section>
+
+    <section class="dash-content hidden" id="financeSection">
+      <div class="product-bar"><div><h2 id="financeTitle">Contas a receber</h2><p class="pdv-tiny">Controle financeiro separado por loja, com baixa e histórico de pagamentos.</p></div><button class="pdv-secondary" id="financeReload" type="button">Atualizar</button></div>
+      <div class="pdv-alert hidden" id="financeNotice" role="status" aria-live="polite"></div>
+      <div class="history-metrics"><div><small>Total em aberto</small><strong id="finOpen">—</strong></div><div><small>Em atraso</small><strong id="finOverdue">—</strong></div><div><small>Liquidado</small><strong id="finPaid">—</strong></div><div><small>Quantidade de contas</small><strong id="finCount">—</strong></div></div>
+      <form id="financeForm" class="pdv-form" autocomplete="off"><h3 id="financeFormTitle">Nova conta</h3><div class="pdv-form-grid">
+        <label id="financePartyLabel">Cliente *<input id="finParty" maxlength="160" required placeholder="Nome"></label>
+        <label>Descrição *<input id="finDescription" maxlength="200" required placeholder="Ex.: venda a prazo"></label>
+        <label>Valor total (R$) *<input id="finAmount" type="number" min="0.01" max="9999999999.99" step="0.01" required></label>
+        <label>Primeiro vencimento *<input id="finDue" type="date" required></label>
+        <label>Parcelas *<input id="finInstallments" type="number" min="1" max="36" step="1" value="1" required></label>
+      </div><div class="pdv-form-buttons"><button id="finSave" class="pdv-primary" type="submit">Cadastrar conta</button></div><p class="pdv-tiny">Parcelas mensais, preservando o valor total em centavos. Não registre novamente uma venda já lançada.</p></form>
+      <div class="pdv-filter"><label>Filtrar contas<select id="finFilter" style="display:block;width:100%;padding:10px;margin-top:5px;border:1px solid #cbdbe6;border-radius:9px"><option value="todas">Todas</option><option value="abertas">Em aberto</option><option value="atrasadas">Atrasadas</option><option value="quitadas">Quitadas</option></select></label></div>
+      <div id="financeList" class="history-list"><div class="pdv-empty">Selecione uma tela financeira.</div></div>
+      <p class="pdv-tiny">Fase de testes: contas cadastradas aqui são manuais. Vendas a prazo e compras ainda não são importadas automaticamente. Para dinheiro em caixa, a baixa exige um caixa aberto.</p>
+    </section>
+    <section class="dash-content hidden" id="catalogSection">
+      <div class="product-bar"><div><h2>Catálogo online</h2><div class="pdv-tiny">Produtos da loja e pedidos com atendimento pelo WhatsApp.</div></div><button class="pdv-secondary" id="catalogReload" type="button">Atualizar pré-visualização</button></div>
+      <div class="catalog-banner"><strong>Pedidos pelo WhatsApp.</strong> O cliente monta o carrinho no catálogo público e envia a mensagem à loja. Pagamento e entrega são combinados com o vendedor. Nenhuma cobrança bancária é criada por este catálogo.</div><p><a id="openStoreCatalog" class="pdv-primary" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none">Abrir catálogo da loja</a></p>
+
+      <div id="catalogOverview" class="pdv-stats"></div>
+      <div id="catalogPreview" class="catalog-grid"><p class="pdv-tiny">Carregando produtos…</p></div>
+             <div class="catalog-preview-cart">
+         <h3>Como funcionam os pedidos online</h3>
+         <p class="pdv-tiny">O comprador escolhe produtos, informa nome e WhatsApp e abre uma mensagem pronta para o WhatsApp cadastrado da loja. A loja confirma disponibilidade, pagamento e retirada ou entrega.</p>
+         <p class="pdv-tiny"><strong>Importante:</strong> o pedido só é gravado quando o checkout seguro estiver liberado no servidor. A reserva de estoque dura até 15 minutos; abrir o WhatsApp não garante que a mensagem tenha sido enviada.</p>
+       </div>    </section>
+    <section class="dash-content hidden" id="whatsappOrdersSection">
+      <div class="product-bar"><div><h2>Pedidos recebidos pelo WhatsApp</h2><div class="pdv-tiny">Pedidos da sua loja registrados no Supabase. Confirmar baixa o estoque; cancelar libera a reserva.</div></div><button class="pdv-secondary" type="button" id="reloadWhatsappOrders">Atualizar pedidos</button></div>
+      <div class="catalog-banner"><strong>Pagamentos separados.</strong> A confirmação do pedido não indica pagamento recebido. Confirme apenas pedidos com reservas ativas e atendimento efetivamente combinado. Depois de confirmar, o estoque é descontado pelo Supabase. O envio da mensagem pelo comprador não é verificável automaticamente.</div>
+      <div class="pdv-alert hidden" id="whatsappOrdersNotice" role="status" aria-live="polite"></div>
+      <div class="pdv-filter"><label style="margin:0">Filtrar situação <select id="whatsappOrdersFilter" class="field" style="min-width:170px"><option value="todos">Todos</option><option value="pendente">Pendentes</option><option value="confirmado">Confirmados</option><option value="cancelado">Cancelados</option><option value="preparando">Preparando</option><option value="entregue">Entregues</option></select></label><span id="whatsappOrdersCount" class="pdv-tiny"></span></div>
+      <div id="whatsappOrdersList" class="history-list"><div class="pdv-empty">Abra esta tela para carregar os pedidos.</div></div>
+    </section>
+    <section class="dash-content hidden" id="integrationSection">
+      <h2>Integração de pagamentos (opcional)</h2>
+      <p>O Conecta PDV funciona sem integração bancária. O caixa físico aceita pagamentos informados pelo operador; o catálogo online abre o pedido no WhatsApp da loja.</p>
+      <div class="catalog-preview-cart"><h3>Solicitar integração ao suporte</h3>
+        <p>Se quiser receber pagamentos automáticos, solicite ao suporte a avaliação de integração com o Asaas ou outro provedor compatível.</p>
+        <label>WhatsApp oficial do suporte Conecta PDV <input id="integrationSupportPhone" type="tel" value="(61) 99665-4338" readonly aria-label="WhatsApp oficial do suporte Conecta PDV"></label>
+        <button id="requestIntegration" class="pdv-primary" type="button">Solicitar integração pelo WhatsApp</button>
+        <p class="pdv-tiny">Contato oficial fixo para todas as lojas: (61) 99665-4338. A integração de pagamentos é opcional e depende de análise do suporte.</p>
+        <div id="integrationStatus" class="pdv-alert hidden" role="status"></div>
+      </div>
+    </section>
+    <section class="dash-content hidden" id="dashModule"><h2 id="moduleTitle"></h2><p id="moduleDescription"></p><p class="dash-muted">Esta área é uma estrutura inicial. Ainda não grava produtos, vendas nem movimentações financeiras.</p></section>
+  </main>
+</div>
+
+
+<dialog id="receiptDialog" class="receipt-dialog" aria-labelledby="receiptDialogTitle">
+ <div class="receipt-dialog-inner">
+  <h2 id="receiptDialogTitle">✓ Venda finalizada!</h2>
+  <p id="receiptDialogMessage">Deseja imprimir o cupom desta venda?</p>
+  <label for="receiptPaperSize">Largura do papel</label>
+  <select id="receiptPaperSize" class="receipt-size"><option value="80">Térmica 80 mm</option><option value="58">Térmica 58 mm</option></select>
+  <p class="pdv-tiny">Comprovante de venda não fiscal. A impressão será aberta no navegador; não emite NFC-e ou documento fiscal.</p>
+  <div class="receipt-controls"><button id="receiptYes" class="pdv-primary" type="button">🖨 Sim, imprimir</button><button id="receiptNo" class="pdv-secondary" type="button">Não, obrigado</button></div>
+ </div>
+</dialog>
+<div class="public-catalog hidden" id="publicCatalog" aria-label="Catálogo público Conecta PDV">
+  <div class="public-top"><div><div class="eyebrow">Conecta PDV</div><h1>Catálogo online</h1></div><a href="./index.html">Área da loja</a></div>
+  <div class="catalog-banner"><strong>Pedidos pelo WhatsApp — em testes.</strong> O checkout só funciona quando a loja e o servidor liberarem os pedidos. A reserva é temporária e o pagamento será combinado com a loja.</div>
+  <div class="catalog-headline"><h2 id="publicStoreName">Carregando loja…</h2><input id="publicSearch" type="search" placeholder="Pesquisar produtos" aria-label="Pesquisar produtos" style="max-width:290px"></div>
+  <div id="publicCatalogStatus" class="pdv-alert" role="status">Consultando produtos…</div>
+  <div id="publicProducts" class="catalog-grid"></div>
+  <div class="catalog-preview-cart" id="publicCheckout">
+    <h2>Meu carrinho</h2><div id="publicCart"><p class="pdv-tiny">Selecione os produtos acima.</p></div>
+    <div class="sale-total" id="publicTotal">R$ 0,00</div>
+    <div class="catalog-input-grid">
+      <label>Nome do comprador *<input id="buyerName" type="text" maxlength="100" autocomplete="name" placeholder="Seu nome"></label>
+      <label>WhatsApp do comprador *<input id="buyerPhone" type="tel" maxlength="20" autocomplete="tel" placeholder="DDD + número"></label>
+      <label>Entrega ou retirada<select id="buyerDelivery" style="display:block;width:100%;padding:13px;margin-top:5px;border:1px solid #cbdbe6;border-radius:11px"><option value="A combinar">A combinar</option><option value="Retirada na loja">Retirada na loja</option><option value="Entrega">Entrega</option></select></label>
+    </div>
+    <label>Observações (opcional)<textarea id="buyerNotes" rows="2" maxlength="250" style="width:100%;border:1px solid #cbdbe6;border-radius:11px;padding:12px" placeholder="Cor, endereço, horário…"></textarea></label>
+    <button id="sendWhatsappOrder" class="pdv-primary" type="button">Finalizar pedido pelo WhatsApp</button>
+    <p class="pdv-tiny">O servidor registra o pedido e reserva temporariamente o estoque antes de abrir o WhatsApp. Toque em Enviar no WhatsApp para encaminhar a mensagem à loja. Nenhum pagamento é feito no site.</p>
+    <div id="publicOrderMessage" class="pdv-alert hidden" role="status" aria-live="polite"></div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+(()=>{'use strict';
+const urlDefault='https://zfcwmakztfwtmocgllac.supabase.co';
+ const isPublicCatalog=new URLSearchParams(window.location.search).get('catalogo')==='1';
+ if(isPublicCatalog){document.body.classList.add('public-catalog-mode');document.getElementById('publicCatalog').classList.remove('hidden');return;} 
+const $=id=>document.getElementById(id);let client=null;
+const status=(message,type='')=>{const el=$('status');el.className='status'+(type?' '+type:'');el.textContent=message};
+const validKey=k=>/^sb_publishable_[A-Za-z0-9_-]+$/.test(k);
+const validUrl=u=>/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/.test(u);
+function createClient(){const url=localStorage.getItem('conecta_pdv_url')||urlDefault;const key=localStorage.getItem('conecta_pdv_publishable')||'';$('projectUrl').value=url;$('publicKey').value=key;if(!validUrl(url)||!validKey(key)){client=null;status('Antes do primeiro login, abra “Configuração inicial do Supabase” e guarde a chave pública deste projeto.');$('configDetails').open=true;return false}if(!window.supabase?.createClient){status('Não foi possível carregar a biblioteca Supabase. Verifique a internet e atualize a página.','error');return false}try{client=window.supabase.createClient(url.replace(/\/$/,''),key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});return true}catch(e){status('Falha ao inicializar Supabase: '+e.message,'error');return false}}
+
+const views={receber:['Contas a receber','Clientes, parcelas e baixas financeiras.'],pagar:['Contas a pagar','Fornecedores, despesas e baixas financeiras.'],pedidos:['Pedidos WhatsApp','Acompanhe e gerencie os pedidos da sua loja.'],inicio:['Visão geral','Informações da loja'],produtos:['Produtos','Aqui vamos cadastrar produtos, códigos de barras, preços e categorias.'],estoque:['Estoque','Aqui vamos controlar quantidades, entradas, saídas e alertas.'],vendas:['Vendas','Frente de caixa com pagamentos divididos e baixa de estoque.'],historico:['Histórico de Vendas','Consulte as vendas registradas por período.'],caixa:['Caixa','Aqui vamos acompanhar abertura, fechamento e movimentações.'],catalogo:['Catálogo online','Produtos e pedidos enviados para o WhatsApp da loja.'],integracoes:['Integrações','Solicite integração bancária quando precisar.'],funcionarios:['Funcionários','Aqui vamos controlar equipe e permissões por loja.'],relatorios:['Relatórios','Aqui vamos mostrar vendas, estoque e resultados da loja.']};
+let accessReady=false;let currentShopId=null;let currentIsOwner=false;let currentCanFinance=false;let whatsappOrders=[];let whatsappOrdersBusy=false;let products=[];let productLoading=false;let saleCart=[];let salePay=[];let saleBusy=false;let historyBusy=false;let cashBusy=false;let openCash=null;let currentCashComputed=null;
+function showView(view){
+ if(['caixa','historico','relatorios','receber','pagar'].includes(view) && !currentCanFinance){dashMessage('Acesso financeiro não autorizado para este perfil.','error');return;}
+ if(!accessReady){$('dashStatus').textContent='Acesso à loja ainda não confirmado. Verifique a ligação e as permissões.';return}
+ const v=views[view]||views.inicio;
+ document.querySelectorAll('#dashNav button').forEach(b=>b.classList.toggle('selected',b.dataset.view===view));
+ $('dashTitle').textContent=v[0];
+ $('dashHome').classList.toggle('hidden',view!=='inicio');
+ $('dashModule').classList.toggle('hidden',['inicio','produtos','vendas','historico','caixa','catalogo','integracoes','pedidos','receber','pagar','relatorios'].includes(view));
+ $('productSection').classList.toggle('hidden',view!=='produtos');
+  $('catalogSection').classList.toggle('hidden',view!=='catalogo');$('integrationSection').classList.toggle('hidden',view!=='integracoes');$('whatsappOrdersSection').classList.toggle('hidden',view!=='pedidos');
+ $('salesSection').classList.toggle('hidden',view!=='vendas');
+ $('historySection').classList.toggle('hidden',view!=='historico');
+  $('cashSection').classList.toggle('hidden',view!=='caixa');$('reportsSection').classList.toggle('hidden',view!=='relatorios');
+  $('financeSection').classList.toggle('hidden',!['receber','pagar'].includes(view));
+  if(view==='receber'||view==='pagar')loadFinance(view);
+  if(view==='caixa')loadCash();
+ if(view==='produtos')loadProducts();
+  if(view==='catalogo'){loadProducts();renderCatalogPreview();$('openStoreCatalog').href='./index.html?catalogo=1&loja='+encodeURIComponent(currentShopId)}
+ if(view==='vendas'){loadProducts();renderSale()}
+ if(view==='historico')loadHistory();if(view==='relatorios'){if(currentReportTab==='estoque')loadStockReport();else if(currentReportTab==='financeiro')loadFinancialReport();else loadReport();}
+  if(view==='pedidos')loadWhatsappOrders();
+ if(!['inicio','produtos','vendas','historico','caixa','catalogo','integracoes','pedidos','receber','pagar','relatorios'].includes(view)){$('moduleTitle').textContent=v[0];$('moduleDescription').textContent=v[1]}
+}
+function dashMessage(msg,kind=''){$('dashStatus').className='dash-status'+(kind?' '+kind:'');$('dashStatus').textContent=msg}
+const matchId=(a,b)=>String(a||'').toLowerCase()===String(b||'').toLowerCase();
+async function verifyShop(user){accessReady=false;currentShopId=null;currentIsOwner=false;currentCanFinance=false;$('dashHome').classList.add('hidden');$('dashModule').classList.add('hidden');$('productSection').classList.add('hidden');$('salesSection').classList.add('hidden');$('historySection').classList.add('hidden');$('cashSection').classList.add('hidden');$('reportsSection').classList.add('hidden');$('financeSection').classList.add('hidden');$('catalogSection').classList.add('hidden');$('whatsappOrdersSection').classList.add('hidden');dashMessage('A verificar o vínculo com a loja e as permissões…');
+ try{
+  const {data:staff,error:staffError}=await client.from('funcionarios').select('*').limit(100);
+  if(staffError)throw new Error('Não foi possível consultar funcionários: '+staffError.message);
+  const idKeys=['usuario_id','user_id','auth_user_id','auth_uid','id_usuario','usuario_auth_id','user_auth_id'];
+  const own=(staff||[]).find(f=>idKeys.some(k=>matchId(f[k],user.id)));
+  if(!own)throw new Error('Não foi possível confirmar o vínculo entre esta conta e um funcionário. Confira no Supabase qual coluna guarda o ID de Authentication e as políticas RLS.');
+  if(own.ativo===false)throw new Error('Este funcionário está inativo.');
+  const shopId=own.loja_id??own.id_loja;
+  if(!shopId)throw new Error('O funcionário não possui loja_id associado.');
+  const {data:shops,error:shopError}=await client.from('lojas').select('*').limit(100);
+  if(shopError)throw new Error('Não foi possível consultar lojas: '+shopError.message);
+  const shop=(shops||[]).find(l=>matchId(l.id,shopId)||matchId(l.loja_id,shopId));
+  if(!shop)throw new Error('A loja associada não está acessível. Verifique as políticas RLS de lojas.');
+  const {data:perms,error:permError}=await client.from('permissoes').select('*').limit(100);
+  if(permError)throw new Error('Não foi possível consultar permissões: '+permError.message);
+  const ownPerm=(perms||[]).find(p=>['funcionario_id','id_funcionario'].some(k=>matchId(p[k],own.id)) || ['usuario_id','user_id'].some(k=>matchId(p[k],user.id)));
+  if(!ownPerm)throw new Error('Não foram encontradas permissões para este funcionário.');
+  accessReady=true;currentShopId=shopId;currentIsOwner=own.cargo==='dono';currentCanFinance=currentIsOwner||(ownPerm.pode_vender===true&&ownPerm.pode_ver_financeiro===true);document.querySelectorAll('#dashNav [data-view]').forEach(b=>{if(['caixa','historico','relatorios','receber','pagar'].includes(b.dataset.view))b.classList.toggle('hidden',!currentCanFinance)});document.body.classList.add('dashboard-mode');$('dashboard').classList.remove('hidden');$('dashSubtitle').textContent=(shop.nome_fantasia||shop.nome||shop.razao_social||'Loja')+' • '+(user.email||'');$('dashShopCount').textContent='1';$('shopDetail').replaceChildren();const sh=document.createElement('strong');sh.textContent='Loja: '+(shop.nome_fantasia||shop.nome||shop.razao_social||'Loja cadastrada');$('shopDetail').append(sh);$('employeeDetail').replaceChildren();const emp=document.createElement('strong');emp.textContent='Acesso: '+(own.nome||'Funcionário')+' • '+(own.cargo||'Cargo não informado');$('employeeDetail').append(emp);dashMessage('Loja e permissões consultadas no Supabase. O acesso final aos dados depende das políticas RLS.','success');showView('inicio');loadProducts();
+ }catch(e){document.body.classList.add('dashboard-mode');$('dashboard').classList.remove('hidden');$('dashTitle').textContent='Acesso em verificação';$('dashSubtitle').textContent=user.email||'Conta autenticada';dashMessage(e?.message||'Erro ao verificar a loja.','error')}
+}
+async function refresh(){if(!client)return;const {data,error}=await client.auth.getUser();if(error){status('Não foi possível validar a conta: '+error.message,'error');return}const user=data?.user;if(user){$('loginForm').classList.add('hidden');$('signedIn').classList.remove('hidden');$('signedEmail').textContent=user.email||'Utilizador autenticado';status('Autenticação concluída com sucesso.','success');await verifyShop(user)}else{accessReady=false;currentShopId=null;currentIsOwner=false;currentCanFinance=false;whatsappOrders=[];products=[];saleCart=[];salePay=[];openCash=null;currentCashComputed=null;document.body.classList.remove('dashboard-mode');$('dashboard').classList.add('hidden');$('loginForm').classList.remove('hidden');$('signedIn').classList.add('hidden');status('Ligação configurada. Pode entrar com seu e-mail e senha.','success')}}
+
+function productNotice(message,type=''){const el=$('productNotice');el.textContent=message;el.className='pdv-alert'+(type?' '+type:'');el.classList.toggle('hidden',!message)}
+function formatMoney(value){return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(value)||0)}
+function asText(tag,value){const e=document.createElement(tag);e.textContent=String(value??'');return e}
+function lowStock(p){return p.ativo!==false&&Number(p.quantidade)<=Number(p.estoque_minimo)}
+function safePhotoUrl(value){try{const url=new URL(String(value||''));return url.protocol==='https:'&&url.username===''&&url.password===''&&url.href.length<=1500?url.href:null}catch{return null}}
+function photoNode(url,alt='Foto do produto'){const safe=safePhotoUrl(url);if(!safe){const ph=asText('span','▣');ph.className='pdv-photo-placeholder';ph.setAttribute('aria-label','Produto sem foto');return ph}const img=document.createElement('img');img.className='pdv-photo';img.src=safe;img.alt=alt;img.loading='lazy';img.referrerPolicy='no-referrer';img.addEventListener('error',()=>{const ph=asText('span','▣');ph.className='pdv-photo-placeholder';ph.setAttribute('aria-label','Foto indisponível');img.replaceWith(ph)},{once:true});return img}
+function photoNameNode(p){const pair=document.createElement('div');pair.className='pdv-photo-pair';const desc=document.createElement('div');desc.append(asText('strong',p.nome));pair.append(photoNode(p.imagem_url,'Foto de '+p.nome),desc);return pair}
+const PRODUCT_PHOTO_BUCKET='fotos-produtos';
+let productPhotoExisting=null,productPhotoRemove=false,productPhotoPreviewUrl=null;
+function clearPhotoPreviewObject(){if(productPhotoPreviewUrl){URL.revokeObjectURL(productPhotoPreviewUrl);productPhotoPreviewUrl=null}}
+function previewProductImage(){
+ const img=$('prodImagePreview');clearPhotoPreviewObject();const file=$('prodImageFile').files?.[0];
+ const url=file?(productPhotoPreviewUrl=URL.createObjectURL(file)):(!productPhotoRemove?safePhotoUrl(productPhotoExisting):null);
+ img.classList.toggle('hidden',!url);$('prodImageRemove').classList.toggle('hidden',!url);
+ if(url){img.src=url;img.referrerPolicy='no-referrer'}else img.removeAttribute('src');
+}
+$('prodImageFile').addEventListener('change',()=>{productPhotoRemove=false;previewProductImage()});
+$('prodImageRemove').addEventListener('click',()=>{$('prodImageFile').value='';productPhotoRemove=true;previewProductImage()});
+$('prodImagePreview').addEventListener('error',()=>{$('prodImagePreview').classList.add('hidden')});
+async function uploadProductPhoto(file){
+ const types={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif'};
+ const ext=types[file.type];if(!ext)throw new Error('Use uma imagem JPG, PNG, WebP ou GIF.');
+ if(file.size<=0||file.size>5*1024*1024)throw new Error('A foto deve ter até 5 MB.');
+ if(!currentShopId||!client)throw new Error('Loja não identificada.');
+ const uuid=crypto.randomUUID();const path=currentShopId+'/'+uuid+'.'+ext;
+ const {error}=await client.storage.from(PRODUCT_PHOTO_BUCKET).upload(path,file,{contentType:file.type,cacheControl:'3600',upsert:false});
+ if(error)throw new Error('Falha ao enviar a foto: '+error.message+'. Confira o bucket e as políticas do Storage.');
+ const {data}=client.storage.from(PRODUCT_PHOTO_BUCKET).getPublicUrl(path);
+ const url=safePhotoUrl(data?.publicUrl);if(!url)throw new Error('O Storage não retornou uma URL de foto válida.');
+ return {path,url};
+}
+function renderProducts(){const term=$('productSearch').value.trim().toLocaleLowerCase('pt-BR');const filtered=products.filter(p=>[p.nome,p.codigo_barras,p.categoria].some(v=>String(v||'').toLocaleLowerCase('pt-BR').includes(term)));const tbody=$('productRows');tbody.replaceChildren();$('productTotal').textContent=products.length+' produto(s)';$('productLow').textContent=products.filter(lowStock).length+' com estoque baixo';$('dashProductCount').textContent=String(products.length);
+if(!filtered.length){const tr=document.createElement('tr');const td=asText('td',products.length?'Nenhum produto corresponde à pesquisa.':'Nenhum produto cadastrado nesta loja.');td.colSpan=7;td.className='pdv-empty';tr.append(td);tbody.append(tr);return}
+for(const p of filtered){const tr=document.createElement('tr');const photoTd=document.createElement('td');photoTd.append(photoNameNode(p));tr.append(photoTd);for(const v of [p.codigo_barras||'—',p.categoria||'—',formatMoney(p.preco_venda),String(p.quantidade)])tr.append(asText('td',v));const statusCell=document.createElement('td');const chip=asText('span',p.ativo===false?'Inativo':lowStock(p)?'Estoque baixo':'Normal');chip.className='pdv-chip'+(p.ativo===false?' off':lowStock(p)?' low':'');statusCell.append(chip);tr.append(statusCell);const actionCell=document.createElement('td');const actionGroup=document.createElement('div');actionGroup.className='pdv-actions';const edit=asText('button','Editar');edit.className='pdv-secondary';edit.type='button';edit.addEventListener('click',()=>openProductForm(p));const del=asText('button','Excluir');del.className='pdv-danger';del.type='button';del.addEventListener('click',()=>deleteProduct(p));actionGroup.append(edit,del);actionCell.append(actionGroup);tr.append(actionCell);tbody.append(tr)}}
+async function loadProducts(){if(!accessReady||!currentShopId||!client||productLoading)return;productLoading=true;$('reloadProductsButton').disabled=true;try{const {data,error}=await client.from('produtos').select('id,loja_id,nome,codigo_barras,categoria,preco_custo,preco_venda,quantidade,estoque_minimo,ativo,imagem_url').eq('loja_id',currentShopId).order('nome',{ascending:true}).limit(1000);if(error)throw error;products=data||[];productNotice('');renderProducts();renderSale();renderCatalogPreview()}catch(e){productNotice('Não foi possível carregar produtos: '+(e?.message||'erro de acesso')+'. Verifique as políticas RLS.','error')}finally{productLoading=false;$('reloadProductsButton').disabled=false}}
+function renderCatalogPreview(){
+ const container=$('catalogPreview'),overview=$('catalogOverview');
+ if(!container||!overview)return;
+ container.replaceChildren();overview.replaceChildren();
+ const active=products.filter(p=>p.ativo!==false);
+ overview.append(asText('span',active.length+' produto(s) ativo(s)'),asText('span','Pedidos via WhatsApp')); 
+ if(!active.length){container.append(asText('p','Nenhum produto ativo carregado nesta loja.'));return}
+ for(const p of active){
+  const card=document.createElement('article');card.className='catalog-card';
+  const glyph=asText('div','▣');glyph.className='catalog-glyph';
+  const stock=Number(p.quantidade)>0?'Estoque: '+p.quantidade:'Sem estoque';
+  const price=asText('span',formatMoney(p.preco_venda));price.className='price';
+  const btn=asText('button','Ver no catálogo público');btn.type='button';btn.className='pdv-secondary';btn.addEventListener('click',()=>window.open('./index.html?catalogo=1&loja='+encodeURIComponent(currentShopId),'_blank','noopener')); 
+  card.append(glyph,asText('strong',p.nome),asText('small',p.categoria||'Produto'),price,asText('small',stock),btn);
+  container.append(card);
+ }
+}
+$('catalogReload').addEventListener('click',loadProducts);
+ // Contato oficial único do suporte; independente do navegador e da loja.
+ const SUPPORT_WHATSAPP='5561996654338';
+ $('requestIntegration').addEventListener('click',()=>{
+   const msg='Olá, suporte Conecta PDV! Quero solicitar integração de pagamentos automáticos para minha loja. ID da loja: '+(currentShopId||'não informado')+'. Gostaria de conhecer opções, valores e requisitos.';
+   window.open('https://wa.me/'+SUPPORT_WHATSAPP+'?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer');
+ });
+
+// Gestão de pedidos WhatsApp: leitura limitada à loja autenticada.
+ function whatsappOrdersNotice(message,type=''){
+  const el=$('whatsappOrdersNotice');el.textContent=message;el.className='pdv-alert'+(type?' '+type:'');el.classList.toggle('hidden',!message);
+ }
+ async function loadWhatsappOrders(){
+  if(!accessReady||!currentShopId||!client||whatsappOrdersBusy)return;
+  whatsappOrdersBusy=true;$('reloadWhatsappOrders').disabled=true;
+  whatsappOrdersNotice('Consultando pedidos da loja…');
+  try{
+   const {data,error}=await client.from('pedidos_online')
+    .select('id,loja_id,cliente_nome,cliente_telefone,itens,valor_total,status,status_pagamento,criado_em')
+    .eq('loja_id',currentShopId).order('criado_em',{ascending:false}).limit(100);
+   if(error)throw error;
+   const raw=data||[];
+   // A tabela de idempotência é restrita ao servidor; não consultar diretamente.
+   whatsappOrders=raw;
+   whatsappOrdersNotice('Mostrando pedidos online da loja. Os botões específicos só devem ser usados nos pedidos criados pelo WhatsApp; o servidor valida a origem.','success');
+   renderWhatsappOrders();
+  }catch(e){whatsappOrdersNotice('Falha ao consultar pedidos: '+(e?.message||'sem acesso')+'. Verifique a política RLS de pedidos_online.','error')}
+  finally{whatsappOrdersBusy=false;$('reloadWhatsappOrders').disabled=false}
+ }
+ function renderWhatsappOrders(){
+  const filter=$('whatsappOrdersFilter').value,wrap=$('whatsappOrdersList');wrap.replaceChildren();
+  const list=whatsappOrders.filter(p=>filter==='todos'||p.status===filter);
+  $('whatsappOrdersCount').textContent=list.length+' de '+whatsappOrders.length+' pedido(s) carregado(s)';
+  if(!list.length){const empty=asText('div','Nenhum pedido encontrado para este filtro.');empty.className='pdv-empty';wrap.append(empty);return}
+  for(const p of list){
+   const card=document.createElement('article');card.className='history-entry';
+   const head=document.createElement('div');head.className='history-heading';
+   const left=document.createElement('div');left.append(asText('strong',(p.cliente_nome||'Cliente')+' • '+formatMoney(p.valor_total)),asText('small','Pedido '+p.id+' • '+new Date(p.criado_em).toLocaleString('pt-BR')));
+   const meta=asText('div','Pedido: '+p.status+' | Pagamento: '+p.status_pagamento);meta.className='pdv-tiny';head.append(left,meta);card.append(head);
+   const phone=asText('div','Contato: '+(p.cliente_telefone||'Não informado'));phone.className='pdv-tiny';phone.style.marginTop='8px';card.append(phone);
+   if(Array.isArray(p.itens)){
+    const detail=document.createElement('div');detail.className='history-detail';
+    for(const item of p.itens){const prod=products.find(x=>x.id===item.produto_id);const r=document.createElement('div');r.className='history-detail-row';r.append(asText('span',(prod?.nome||'Produto '+String(item.produto_id||'').slice(0,8))+' × '+(item.quantidade||0)),asText('span',formatMoney(Number(item.preco_unitario||0)*Number(item.quantidade||0))));detail.append(r)}
+    card.append(detail);
+   }
+   if(p.status==='pendente'){
+    const actions=document.createElement('div');actions.className='pdv-form-buttons';
+    for(const [label,operation,cls] of [['Confirmar pedido','confirmar_pedido_whatsapp','pdv-primary'],['Cancelar pedido','cancelar_pedido_whatsapp','pdv-danger']]){
+     const btn=asText('button',label);btn.type='button';btn.className=cls;btn.disabled=!currentIsOwner||whatsappOrdersBusy;btn.title=currentIsOwner?'':'Somente o dono da loja pode gerenciar pedidos';btn.addEventListener('click',()=>handleWhatsappOrder(p,operation));actions.append(btn)
+    }card.append(actions);
+   }
+   wrap.append(card);
+  }
+ }
+ async function handleWhatsappOrder(order,operation){
+  if(!client||!currentIsOwner||whatsappOrdersBusy)return;
+  const confirmando=operation==='confirmar_pedido_whatsapp';
+  const text=confirmando?'Confirmar pedido '+order.id+'? Isto DESCONTARÁ o estoque. O pagamento continuará pendente. Só confirme após combinar o atendimento e com reserva válida.':'Cancelar pedido '+order.id+'? As reservas ativas serão liberadas.';
+  if(!window.confirm(text))return;
+  whatsappOrdersBusy=true;renderWhatsappOrders();whatsappOrdersNotice('Atualizando pedido no Supabase…');
+  try{
+   const {error}=await client.rpc(operation,{p_pedido_id:order.id});if(error)throw error;
+   whatsappOrdersNotice(confirmando?'Pedido confirmado. O pagamento permanece pendente.':'Pedido cancelado; reservas ativas liberadas.','success');
+  }catch(e){whatsappOrdersNotice('Operação não concluída: '+(e?.message||'erro de conexão')+'. Atualize a lista antes de tentar novamente.','error')}
+  finally{whatsappOrdersBusy=false;await loadWhatsappOrders();if(confirmando)await loadProducts();renderWhatsappOrders()}
+ }
+ $('reloadWhatsappOrders').addEventListener('click',loadWhatsappOrders);
+ $('whatsappOrdersFilter').addEventListener('change',renderWhatsappOrders);
+
+ function openProductForm(p=null){if(!accessReady||!currentShopId)return;const x=p||{};$('prodId').value=x.id||'';$('prodName').value=x.nome||'';$('prodBarcode').value=x.codigo_barras||'';$('prodCategory').value=x.categoria||'';$('prodCost').value=x.preco_custo??0;$('prodPrice').value=x.preco_venda??0;$('prodQty').value=x.quantidade??0;$('prodMin').value=x.estoque_minimo??0;$('prodActive').value=String(x.ativo!==false);$('prodImageFile').value='';productPhotoExisting=x.imagem_url||null;productPhotoRemove=false;previewProductImage();$('productFormTitle').textContent=p?'Editar produto':'Novo produto';$('productForm').classList.remove('hidden');$('prodName').focus();$('productForm').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function closeProductForm(){$('productForm').reset();$('prodId').value='';productPhotoExisting=null;productPhotoRemove=false;previewProductImage();$('productForm').classList.add('hidden')}
+async function saveProduct(e){
+ e.preventDefault();if(!accessReady||!currentShopId||!client)return;
+ const id=$('prodId').value,quantity=Number($('prodQty').value),minimum=Number($('prodMin').value),cost=Number($('prodCost').value),price=Number($('prodPrice').value);
+ if([quantity,minimum,cost,price].some(v=>!Number.isFinite(v)||v<0)||![quantity,minimum].every(Number.isInteger)){productNotice('Verifique os preços e quantidades. Não são permitidos valores negativos nem quantidades decimais.','error');return}
+ const payload={imagem_url:productPhotoRemove?null:productPhotoExisting,nome:$('prodName').value.trim(),codigo_barras:$('prodBarcode').value.trim()||null,categoria:$('prodCategory').value.trim()||null,preco_custo:cost,preco_venda:price,quantidade:quantity,estoque_minimo:minimum,ativo:$('prodActive').value==='true'};
+ if(!payload.nome){productNotice('Informe o nome do produto.','error');return}
+ const btn=$('saveProductButton'),file=$('prodImageFile').files?.[0];
+ btn.disabled=true;productNotice(file?'Enviando foto e salvando produto…':'Salvando produto…');
+ let uploaded=null;
+ try{
+  if(file){uploaded=await uploadProductPhoto(file);payload.imagem_url=uploaded.url;}
+  let result;
+  if(id){result=await client.from('produtos').update(payload).eq('id',id).eq('loja_id',currentShopId).select('id')}
+  else{result=await client.from('produtos').insert({...payload,loja_id:currentShopId}).select('id')}
+  if(result.error)throw result.error;
+  if(!result.data?.length)throw new Error('Nenhum registro alterado. Confira as permissões RLS.');
+  closeProductForm();await loadProducts();productNotice(id?'Produto atualizado com sucesso.':'Produto cadastrado com sucesso.','success');
+ }catch(e){
+  if(uploaded){await client.storage.from(PRODUCT_PHOTO_BUCKET).remove([uploaded.path]).catch(()=>{});}
+  productNotice('Erro ao salvar: '+(e?.message||'operação não autorizada'),'error');
+ }finally{btn.disabled=false}
+}
+async function deleteProduct(p){if(!accessReady||!currentShopId||!client)return;if(!window.confirm('Excluir definitivamente o produto "'+p.nome+'"? Esta ação não pode ser desfeita.'))return;productNotice('Excluindo produto…');try{const {data,error}=await client.from('produtos').delete().eq('id',p.id).eq('loja_id',currentShopId).select('id');if(error)throw error;if(!data?.length)throw new Error('Nenhum registro excluído. Confira as permissões RLS.');await loadProducts();productNotice('Produto excluído.','success')}catch(e){productNotice('Erro ao excluir: '+(e?.message||'operação não autorizada'),'error')}}
+
+
+ // CUPOM: carregamento somente leitura da venda confirmada. Nunca chama finalizar_venda.
+ let receiptCurrent=null;
+ const receiptDialog=$('receiptDialog');
+ const receiptEscape=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+ async function fetchConfirmedReceipt(saleId){
+  if(!accessReady||!currentShopId||!currentCanFinance||!client)throw new Error('Acesso financeiro não confirmado.');
+  const [saleQ,itemQ,payQ]=await Promise.all([
+   client.from('vendas').select('id,loja_id,numero_venda,criado_em,total,status').eq('id',saleId).eq('loja_id',currentShopId).maybeSingle(),
+   client.from('itens_venda').select('venda_id,produto_id,quantidade,preco_unitario,subtotal').eq('venda_id',saleId),
+   client.from('pagamentos_venda').select('venda_id,forma_pagamento,valor').eq('venda_id',saleId)
+  ]);
+  if(saleQ.error||itemQ.error||payQ.error)throw new Error(saleQ.error?.message||itemQ.error?.message||payQ.error?.message);
+  if(!saleQ.data||saleQ.data.status!=='concluida')throw new Error('Venda não encontrada ou ainda não concluída.');
+  const items=itemQ.data||[],payments=payQ.data||[];
+  if(!items.length||!payments.length)throw new Error('Itens ou pagamentos não disponíveis para o cupom.');
+  const total=cents(saleQ.data.total);
+  if(!Number.isFinite(total)||total<=0||payments.reduce((sum,p)=>sum+cents(p.valor),0)!==total)throw new Error('Valores inconsistentes entre venda e pagamentos.');
+  return {sale:saleQ.data,items,payments,shopName:($('shopDetail').textContent||'').replace(/^Loja:\s*/,'').trim()||'Loja'};
+ }
+ function openReceiptPrompt(receipt){receiptCurrent=receipt;$('receiptDialogMessage').textContent='Venda #'+(receipt.sale.numero_venda??String(receipt.sale.id).slice(0,8))+' registrada. Deseja imprimir o cupom?';if(!receiptDialog.open)receiptDialog.showModal()}
+ $('receiptNo').addEventListener('click',()=>{receiptDialog.close();receiptCurrent=null});
+ receiptDialog.addEventListener('cancel',()=>{receiptCurrent=null});
+ function receiptHtml(r,mm){
+  const width=mm===58?58:80;
+  const lines=r.items.map(i=>{
+   const prod=products.find(p=>p.id===i.produto_id);
+   const name=prod?.nome||'Produto '+String(i.produto_id||'').slice(0,8);
+   return '<div class="item"><strong>'+receiptEscape(name)+'</strong><div class="lr"><span>'+receiptEscape(i.quantidade)+' × '+receiptEscape(formatMoney(i.preco_unitario))+'</span><span>'+receiptEscape(formatMoney(i.subtotal))+'</span></div></div>';
+  }).join('');
+  const paymentLines=r.payments.map(x=>'<div class="lr"><span>'+receiptEscape(historyLabels[x.forma_pagamento]||x.forma_pagamento)+'</span><span>'+receiptEscape(formatMoney(x.valor))+'</span></div>').join('');
+  return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Cupom venda ${receiptEscape(r.sale.numero_venda??String(r.sale.id).slice(0,8))}</title><style>
+  @page{size:${width}mm auto;margin:3mm}*{box-sizing:border-box}body{width:${width-6}mm;max-width:100%;margin:0 auto;font:12px/1.4 Arial,sans-serif;color:#111}
+  h1{font-size:16px;margin:0;text-align:center;overflow-wrap:anywhere}.center{text-align:center}.small{font-size:10px}.rule{border-top:1px dashed #444;margin:9px 0}.lr{display:flex;justify-content:space-between;gap:8px}.lr span:last-child{text-align:right}.item{margin:7px 0;break-inside:avoid}.item strong{overflow-wrap:anywhere}.total{font-size:16px;font-weight:bold}.buttons{padding:10px 0;text-align:center}@media print{.buttons{display:none}}@media screen{body{padding:15px 0}}
+  </style></head><body><h1>${receiptEscape(r.shopName)}</h1><div class="center small">COMPROVANTE DE VENDA — NÃO FISCAL</div><div class="rule"></div>
+  <div>Venda: ${receiptEscape(r.sale.numero_venda??r.sale.id)}</div><div>Data: ${receiptEscape(new Date(r.sale.criado_em).toLocaleString('pt-BR'))}</div><div class="rule"></div>
+  ${lines}<div class="rule"></div><div class="lr total"><span>TOTAL</span><span>${receiptEscape(formatMoney(r.sale.total))}</span></div><div class="rule"></div>
+  <strong>Pagamentos</strong>${paymentLines}<div class="rule"></div><div class="center">Obrigado pela preferência!</div><div class="center small">Este comprovante não substitui nota fiscal.</div>
+  <div class="buttons"><button onclick="window.print()">Imprimir cupom</button></div></body></html>`;
+ }
+ $('receiptYes').addEventListener('click',()=>{
+  if(!receiptCurrent)return;
+  const popup=window.open('','_blank');
+  if(!popup){$('receiptDialogMessage').textContent='O navegador bloqueou a janela. Permita pop-ups e clique em Sim, imprimir novamente.';return}
+  popup.document.open();popup.document.write(receiptHtml(receiptCurrent,Number($('receiptPaperSize').value)));popup.document.close();popup.focus();
+  receiptDialog.close();receiptCurrent=null;
+  // Botão Imprimir cupom na nova guia permite escolher a impressora com segurança.
+ });
+
+ // Venda real: o servidor recalcula os preços e efetua todos os lançamentos na RPC.
+ const cents=v=>Math.round((Number(v)||0)*100);
+ const moneyCents=v=>formatMoney(v/100);
+ function saleMessage(message,type=''){const el=$('saleNotice');el.textContent=message;el.className='pdv-alert'+(type?' '+type:'');el.classList.toggle('hidden',!message)}
+ function saleTotalCents(){return saleCart.reduce((sum,item)=>{const p=products.find(p=>p.id===item.id);return sum+(p?cents(p.preco_venda)*item.qtd:0)},0)}
+ function addToSale(p){if(saleBusy)return;if(p.ativo===false||Number(p.quantidade)<1){saleMessage('Este produto está indisponível para venda.','error');return}const existing=saleCart.find(i=>i.id===p.id);if(existing){if(existing.qtd>=Number(p.quantidade)){saleMessage('A quantidade solicitada supera o estoque disponível.','error');return}existing.qtd++}else saleCart.push({id:p.id,qtd:1});saleMessage('');$('saleResult').classList.add('hidden');renderSale()}
+ function renderSale(){if(!$('saleProducts'))return;const query=$('saleSearch').value.trim().toLocaleLowerCase('pt-BR');const available=products.filter(p=>p.ativo!==false&&[p.nome,p.codigo_barras].some(t=>String(t||'').toLocaleLowerCase('pt-BR').includes(query))).slice(0,80);const list=$('saleProducts');list.replaceChildren();if(!available.length)list.append(asText('div','Nenhum produto disponível.'));for(const p of available){const row=document.createElement('div');row.className='sale-result';const desc=document.createElement('div');desc.append(asText('strong',p.nome),asText('small',(p.codigo_barras||'Sem código')+' • Estoque: '+p.quantidade+' • '+formatMoney(p.preco_venda)));const photoPair=document.createElement('div');photoPair.className='pdv-photo-pair';photoPair.append(photoNode(p.imagem_url,'Foto de '+p.nome),desc);const b=asText('button','Adicionar');b.type='button';b.disabled=saleBusy||Number(p.quantidade)<1;b.addEventListener('click',()=>addToSale(p));row.append(photoPair,b);list.append(row)}
+ const cart=$('saleCart');cart.replaceChildren();if(!saleCart.length){cart.append(asText('div','Carrinho vazio.'))}for(const item of saleCart){const p=products.find(p=>p.id===item.id);if(!p)continue;const row=document.createElement('div');row.className='sale-row';const name=document.createElement('div');name.append(asText('strong',p.nome),asText('small',formatMoney(p.preco_venda)+' cada'));const photoPair=document.createElement('div');photoPair.className='pdv-photo-pair';photoPair.append(photoNode(p.imagem_url,'Foto de '+p.nome),name);const qty=document.createElement('input');qty.type='number';qty.min='1';qty.max=String(Math.max(1,Number(p.quantidade)));qty.step='1';qty.value=String(item.qtd);qty.disabled=saleBusy;qty.setAttribute('aria-label','Quantidade de '+p.nome);qty.addEventListener('change',()=>{const x=Number(qty.value);if(!Number.isSafeInteger(x)||x<1||x>Number(p.quantidade)){saleMessage('Quantidade inválida ou estoque insuficiente.','error');qty.value=String(item.qtd);return}item.qtd=x;renderSale()});const sum=asText('strong',moneyCents(cents(p.preco_venda)*item.qtd));const remove=asText('button','×');remove.type='button';remove.disabled=saleBusy;remove.setAttribute('aria-label','Remover '+p.nome);remove.addEventListener('click',()=>{saleCart=saleCart.filter(x=>x.id!==p.id);renderSale()});row.append(photoPair,qty,sum,remove);cart.append(row)}
+ $('saleTotal').textContent=moneyCents(saleTotalCents());renderPayments()}
+ const methods=[['pix','PIX'],['dinheiro','Dinheiro'],['credito','Cartão de crédito'],['debito','Cartão de débito'],['transferencia','Transferência'],['outros','Outros']];
+ function renderPayments(){const wrap=$('salePayments');wrap.replaceChildren();salePay.forEach((p,i)=>{const row=document.createElement('div');row.className='sale-pay-row';const sel=document.createElement('select');sel.setAttribute('aria-label','Forma de pagamento');sel.disabled=saleBusy;for(const [value,label] of methods){const option=document.createElement('option');option.value=value;option.textContent=label;sel.append(option)}sel.value=p.forma;sel.addEventListener('change',()=>{p.forma=sel.value;updatePayments()});const val=document.createElement('input');val.type='number';val.min='0.01';val.step='0.01';val.placeholder='Valor em R$';val.value=p.valor;val.disabled=saleBusy;val.setAttribute('aria-label','Valor do pagamento');val.addEventListener('input',()=>{p.valor=val.value;updatePayments()});const remove=asText('button','×');remove.type='button';remove.disabled=saleBusy;remove.setAttribute('aria-label','Remover pagamento');remove.addEventListener('click',()=>{salePay.splice(i,1);renderPayments()});row.append(sel,val,remove);wrap.append(row)});updatePayments();$('addPayment').disabled=saleBusy||salePay.length>=20}
+ function updatePayments(){const total=saleTotalCents();const paid=salePay.reduce((sum,p)=>sum+cents(p.valor),0);$('payTotal').textContent=moneyCents(total);$('payReceived').textContent=moneyCents(paid);$('payRemaining').textContent=moneyCents(total-paid);$('payRemaining').style.color=paid===total?'#126b3b':'#a32d2d';$('finalizeSale').disabled=saleBusy||!saleCart.length||!salePay.length||paid!==total||salePay.some(p=>!Number.isFinite(Number(p.valor))||cents(p.valor)<=0||Math.abs(Number(p.valor)*100-cents(p.valor))>0.00001)}
+ $('saleSearch').addEventListener('input',renderSale);
+ $('saleRefresh').addEventListener('click',async()=>{await loadProducts();saleMessage('Produtos atualizados. Confira o carrinho antes de finalizar.','success')});
+ $('addPayment').addEventListener('click',()=>{if(salePay.length>=20)return;salePay.push({forma:salePay.length?'dinheiro':'pix',valor:salePay.length?'':String((Math.max(0,saleTotalCents()-salePay.reduce((s,p)=>s+cents(p.valor),0))/100).toFixed(2))});renderPayments()});
+ $('clearSale').addEventListener('click',()=>{if(saleBusy)return;saleCart=[];salePay=[];$('saleResult').classList.add('hidden');saleMessage('Carrinho limpo.');renderSale()});
+ $('finalizeSale').addEventListener('click',async()=>{if(saleBusy||!client||!accessReady||!currentShopId)return;const total=saleTotalCents(),paid=salePay.reduce((s,p)=>s+cents(p.valor),0);if(!saleCart.length||!salePay.length||total<=0||paid!==total||salePay.some(p=>cents(p.valor)<=0)){saleMessage('Confira carrinho e pagamentos: os valores devem corresponder exatamente.','error');return}if(!window.confirm('Confirma a venda presencial de '+moneyCents(total)+'? Ela gravará dados reais no Supabase e descontará o estoque.'))return;
+ saleBusy=true;renderSale();$('saleRefresh').disabled=true;$('clearSale').disabled=true;saleMessage('A finalizar no Supabase…');const itens=saleCart.map(i=>({produto_id:i.id,quantidade:i.qtd}));const pagamentos=salePay.map(p=>({forma_pagamento:p.forma,valor:cents(p.valor)/100}));try{const {data,error}=await client.rpc('finalizar_venda',{p_loja_id:currentShopId,p_itens:itens,p_pagamentos:pagamentos});if(error)throw error;if(!data)throw new Error('O servidor não devolveu identificador da venda');const result=$('saleResult');result.replaceChildren();result.append(asText('strong','Venda presencial registrada com sucesso.'),asText('div','Identificador da venda: '+data),asText('div','Total: '+moneyCents(total)+' • Pagamentos: '+pagamentos.map(p=>p.forma_pagamento+' '+formatMoney(p.valor)).join(' + ')));result.classList.remove('hidden');saleCart=[];salePay=[];saleMessage('Estoque será atualizado a partir do banco.','success');await loadProducts();try{const receipt=await fetchConfirmedReceipt(data);openReceiptPrompt(receipt)}catch(printErr){saleMessage('Venda registrada! Não foi possível preparar o cupom agora: '+(printErr?.message||'erro de leitura')+'. Consulte o Histórico de Vendas para imprimir depois.','error')}}catch(err){saleMessage('Não foi possível confirmar a venda: '+(err?.message||'erro de ligação')+'. Se foi um erro de rede, consulte o Supabase antes de repetir.','error')}finally{saleBusy=false;$('saleRefresh').disabled=false;$('clearSale').disabled=false;renderSale()}});
+
+
+ // Histórico de vendas: somente leitura e filtrado pela loja autenticada.
+ const historyDate=new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short'});
+ const historyLabels={pix:'PIX',dinheiro:'Dinheiro',credito:'Cartão de crédito',debito:'Cartão de débito',transferencia:'Transferência',outros:'Outros'};
+ function historyMessage(text,type=''){
+  const el=$('historyNotice');el.textContent=text;el.className='pdv-alert'+(type?' '+type:'');el.classList.toggle('hidden',!text);
+ }
+ function localDateString(date){return [date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-')}
+ const today=new Date();
+ $('historyStart').value=localDateString(new Date(today.getFullYear(),today.getMonth(),1));
+ $('historyEnd').value=localDateString(today);
+ function historyLine(title,value){const el=document.createElement('div');el.className='history-detail-row';el.append(asText('span',title),asText('span',value));return el}
+ function renderHistory(sales,items,payments){
+  const list=$('historyList');list.replaceChildren();
+  const finished=sales.filter(s=>s.status==='concluida');
+  const completed=new Set(finished.map(s=>s.id));
+  const total=finished.reduce((v,s)=>v+cents(s.total),0);
+  const methodSum=m=>payments.filter(p=>completed.has(p.venda_id)&&p.forma_pagamento===m).reduce((sum,p)=>sum+cents(p.valor),0);
+  $('historyCount').textContent=String(finished.length);
+  $('historyGross').textContent=moneyCents(total);
+  $('historyPix').textContent=moneyCents(methodSum('pix'));
+  $('historyCash').textContent=moneyCents(methodSum('dinheiro'));
+  if(!sales.length){list.append(asText('div','Nenhuma venda encontrada neste período.'));return}
+  for(const sale of sales){
+   const entry=document.createElement('article');entry.className='history-entry';
+   const head=document.createElement('div');head.className='history-heading';
+   const label=document.createElement('div');label.append(asText('strong','Venda #'+(sale.numero_venda??String(sale.id).slice(0,8))));
+   label.append(asText('small',historyDate.format(new Date(sale.criado_em))+' • '+(sale.status||'status não informado')));
+   const meta=document.createElement('div');meta.className='history-meta';meta.append(asText('strong',formatMoney(sale.total)));
+   const detailButton=asText('button','Ver detalhes');detailButton.type='button';detailButton.className='pdv-secondary';
+   const detail=document.createElement('div');detail.className='history-detail hidden';
+   const sold=items.filter(i=>i.venda_id===sale.id);
+   detail.append(asText('h4','Produtos vendidos'));
+   if(!sold.length)detail.append(asText('div','Nenhum item encontrado nesta venda.'));
+   for(const item of sold){const prod=products.find(p=>p.id===item.produto_id);detail.append(historyLine((prod?.nome||'Produto '+String(item.produto_id).slice(0,8))+' • '+item.quantidade+' un. × '+formatMoney(item.preco_unitario),formatMoney(item.subtotal)))}
+   detail.append(asText('h4','Pagamentos'));
+   const paid=payments.filter(p=>p.venda_id===sale.id);
+   if(!paid.length)detail.append(asText('div','Nenhum pagamento encontrado nesta venda.'));
+   for(const pay of paid)detail.append(historyLine(historyLabels[pay.forma_pagamento]||pay.forma_pagamento,formatMoney(pay.valor)));
+   detailButton.addEventListener('click',()=>{detail.classList.toggle('hidden');detailButton.textContent=detail.classList.contains('hidden')?'Ver detalhes':'Ocultar detalhes'});
+   if(sale.status==='concluida'){
+    const printButton=asText('button','🖨 Reimprimir cupom');printButton.type='button';printButton.className='pdv-secondary';
+    printButton.addEventListener('click',async()=>{printButton.disabled=true;const original=printButton.textContent;printButton.textContent='Carregando cupom…';try{openReceiptPrompt(await fetchConfirmedReceipt(sale.id))}catch(e){historyMessage('Não foi possível preparar o cupom: '+(e?.message||'erro de leitura'),'error')}finally{printButton.disabled=false;printButton.textContent=original}});
+    meta.append(printButton);
+   }
+   meta.append(detailButton);head.append(label,meta);entry.append(head,detail);list.append(entry);
+  }
+ }
+ async function loadHistory(){
+  if(historyBusy||!accessReady||!currentShopId||!client)return;
+  const start=$('historyStart').value,end=$('historyEnd').value;
+  if(!start||!end||start>end){historyMessage('Informe um período válido: a data inicial deve ser anterior ou igual à final.','error');return}
+  const from=new Date(start+'T00:00:00'),until=new Date(end+'T00:00:00');until.setDate(until.getDate()+1);
+  if(!Number.isFinite(from.getTime())||!Number.isFinite(until.getTime())){historyMessage('As datas informadas são inválidas.','error');return}
+  historyBusy=true;$('historyFilter').disabled=true;$('reloadHistory').disabled=true;historyMessage('Consultando as vendas da loja…');
+  try{
+   const {data:sales,error:salesError}=await client.from('vendas').select('id,loja_id,numero_venda,criado_em,total,status').eq('loja_id',currentShopId).gte('criado_em',from.toISOString()).lt('criado_em',until.toISOString()).order('criado_em',{ascending:false}).limit(200);
+   if(salesError)throw salesError;
+   const rows=sales||[];
+   if(!rows.length){renderHistory([],[],[]);historyMessage('Nenhuma venda encontrada neste período.','success');return}
+   const ids=rows.map(s=>s.id);
+   const [itemResult,paymentResult]=await Promise.all([
+    client.from('itens_venda').select('venda_id,produto_id,quantidade,preco_unitario,subtotal').in('venda_id',ids),
+    client.from('pagamentos_venda').select('venda_id,forma_pagamento,valor').in('venda_id',ids)
+   ]);
+   if(itemResult.error)throw itemResult.error;
+   if(paymentResult.error)throw paymentResult.error;
+   renderHistory(rows,itemResult.data||[],paymentResult.data||[]);
+   historyMessage(rows.length===200?'Foram carregadas as 200 vendas mais recentes do período. Reduza o intervalo para consultar outras vendas.':'Histórico atualizado com sucesso.','success');
+  }catch(e){historyMessage('Não foi possível consultar o histórico: '+(e?.message||'erro desconhecido')+'. Verifique as políticas de leitura no Supabase.','error')}
+  finally{historyBusy=false;$('historyFilter').disabled=false;$('reloadHistory').disabled=false}
+ }
+
+
+ // Relatório de vendas: consultas somente leitura, sem RPC de venda ou gravação financeira.
+ let reportBusy=false,reportRowsData=null,reportTruncated=false;
+ $('reportStart').value=localDateString(new Date(today.getFullYear(),today.getMonth(),1));
+ $('reportEnd').value=localDateString(today);
+ function reportMessage(message,type=''){const el=$('reportNotice');el.textContent=message;el.className='pdv-alert'+(type?' '+type:'');el.classList.toggle('hidden',!message)}
+ const csvCell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+ function reportOutputValue(v){return v===null?'Não calculável':(v/100).toFixed(2).replace('.',',')}
+ function renderReport(rows,truncated){
+   reportRowsData=rows;reportTruncated=truncated;
+   const count=rows.length,revenue=rows.reduce((n,r)=>n+r.total,0),known=rows.every(r=>r.cost!==null);
+   const cost=known?rows.reduce((n,r)=>n+r.cost,0):null;
+   $('reportCount').textContent=String(count)+(truncated?'*':'');
+   $('reportRevenue').textContent=moneyCents(revenue)+(truncated?'*':'');
+   $('reportCost').textContent=cost===null?'Indisponível':moneyCents(cost);
+   $('reportProfit').textContent=cost===null?'Indisponível':moneyCents(revenue-cost);
+   const tbody=$('reportRows');tbody.replaceChildren();
+   if(!rows.length){const tr=document.createElement('tr'),td=asText('td','Nenhuma venda concluída no período.');td.colSpan=5;tr.append(td);tbody.append(tr)}
+   for(const r of rows){const tr=document.createElement('tr');for(const value of [historyDate.format(new Date(r.date)),'#'+r.number,moneyCents(r.total),r.cost===null?'Indisponível':moneyCents(r.cost),r.cost===null?'Indisponível':moneyCents(r.total-r.cost)])tr.append(asText('td',value));tbody.append(tr)}
+   $('reportCSV').disabled=!rows.length;
+   $('reportPrint').disabled=!rows.length;
+ }
+ async function loadReport(){
+   if(reportBusy||!accessReady||!currentShopId||!currentCanFinance||!client)return;
+   const start=$('reportStart').value,end=$('reportEnd').value;
+   if(!start||!end||start>end){reportMessage('Informe um intervalo de datas válido.','error');return}
+   const from=new Date(start+'T00:00:00'),until=new Date(end+'T00:00:00');until.setDate(until.getDate()+1);
+   if(!Number.isFinite(from.getTime())||!Number.isFinite(until.getTime())){reportMessage('Datas inválidas.','error');return}
+   reportBusy=true;reportRowsData=null;$('reportLoad').disabled=true;$('reportCSV').disabled=true;$('reportPrint').disabled=true;
+   reportMessage('Consultando vendas e itens da loja…');
+   try{
+    const {data:sales,error:se}=await client.from('vendas').select('id,loja_id,numero_venda,criado_em,total,status').eq('loja_id',currentShopId).gte('criado_em',from.toISOString()).lt('criado_em',until.toISOString()).eq('status','concluida').order('criado_em',{ascending:false}).limit(200);
+    if(se)throw se;
+    const rows=sales||[],truncated=rows.length===200;
+    if(!rows.length){renderReport([],false);reportMessage('Não há vendas concluídas nesse período.','success');return}
+    const ids=rows.map(s=>s.id);
+    const {data:items,error:ie}=await client.from('itens_venda').select('venda_id,produto_id,quantidade,preco_unitario,subtotal').in('venda_id',ids);
+    if(ie)throw ie;
+    const bySale=new Map();for(const item of items||[]){const list=bySale.get(item.venda_id)||[];list.push(item);bySale.set(item.venda_id,list)}
+    const productIds=[...new Set((items||[]).map(i=>i.produto_id).filter(Boolean))];
+    const byProduct=new Map();
+    for(let offset=0;offset<productIds.length;offset+=100){const {data:prods,error:pe}=await client.from('produtos').select('id,preco_custo').eq('loja_id',currentShopId).in('id',productIds.slice(offset,offset+100));if(pe)throw pe;for(const p of prods||[])byProduct.set(p.id,p)}
+    const result=rows.map(s=>{
+       const saleItems=bySale.get(s.id)||[];
+       let cost=0,complete=saleItems.length>0;
+       for(const item of saleItems){const prod=byProduct.get(item.produto_id),qty=Number(item.quantidade),value=Number(prod?.preco_custo);
+         if(!prod||prod.preco_custo==null||!Number.isFinite(value)||!Number.isFinite(qty)||qty<=0){complete=false;break}
+         cost+=cents(value)*qty;
+       }
+       return {id:s.id,date:s.criado_em,number:s.numero_venda??String(s.id).slice(0,8),total:cents(s.total),cost:complete?cost:null};
+    });
+    renderReport(result,truncated);
+    reportMessage((truncated?'Limite de 200 vendas atingido: valores parciais. Reduza as datas para obter um período completo. ':'')+(result.some(r=>r.cost===null)?'Alguns custos não estão acessíveis; margem geral indisponível. ':'')+'Relatório gerado com dados de vendas concluídas.',truncated?'error':'success');
+   }catch(e){reportRowsData=null;reportMessage('Falha ao gerar relatório: '+(e?.message||'erro de leitura')+'. Verifique as permissões RLS.','error')}
+   finally{reportBusy=false;$('reportLoad').disabled=false}
+ }
+ $('reportLoad').addEventListener('click',loadReport);
+ $('reportCSV').addEventListener('click',()=>{
+  if(!reportRowsData?.length||reportBusy)return;
+  const head=['Data','Venda','Faturamento (R$)','Custo atual estimado (R$)','Margem bruta estimada (R$)'];
+  const lines=[head,...reportRowsData.map(r=>[historyDate.format(new Date(r.date)),r.number,reportOutputValue(r.total),reportOutputValue(r.cost),r.cost===null?'Não calculável':reportOutputValue(r.total-r.cost)])];
+  if(reportTruncated)lines.push(['ATENÇÃO: limite de 200 vendas atingido - dados parciais']);
+  const csv='﻿'+lines.map(row=>row.map(csvCell).join(';')).join('\r\n');
+  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='conecta-pdv-relatorio-vendas-'+$('reportStart').value+'-a-'+$('reportEnd').value+'.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ });
+ $('reportPrint').addEventListener('click',()=>{if(reportRowsData?.length&&!reportBusy)window.print()});
+
+
+ // Relatório de estoque: leitura independente da listagem de produtos, com paginação.
+ let currentReportTab='vendas',stockReportBusy=false,stockReportData=null,stockReportPartial=false;
+ function setReportTab(tab){
+   currentReportTab=tab;
+   $('salesReportPanel').classList.toggle('hidden',tab!=='vendas');
+   $('stockReportPanel').classList.toggle('hidden',tab!=='estoque');
+   $('financialReportPanel').classList.toggle('hidden',tab!=='financeiro');
+   for(const [id,key] of [['reportTabSales','vendas'],['reportTabStock','estoque'],['reportTabFinance','financeiro']]){
+     $(id).className=tab===key?'pdv-primary':'pdv-secondary';
+     $(id).setAttribute('aria-pressed',String(tab===key));
+   }
+ }
+ $('reportTabSales').addEventListener('click',()=>setReportTab('vendas'));
+ $('reportTabStock').addEventListener('click',()=>{setReportTab('estoque');if(stockReportData===null)loadStockReport()});
+ $('reportTabFinance').addEventListener('click',()=>{setReportTab('financeiro');if(financialReportData===null)loadFinancialReport()});
+ function stockReportMessage(message,type=''){const el=$('stockReportNotice');el.textContent=message;el.className='pdv-alert'+(type?' '+type:'');el.classList.toggle('hidden',!message)}
+ function stockStatus(p){if(p.ativo===false)return 'Inativo';if(p.quantidade===0)return 'Sem estoque';if(p.quantidade<=p.estoque_minimo)return 'Estoque baixo';return 'Normal'}
+ function safeStockNumber(v){return v!==null&&v!==''&&Number.isFinite(Number(v))&&Number(v)>=0?Number(v):null}
+ function renderStockReport(data,partial){
+   stockReportData=data;stockReportPartial=partial;
+   const valid=data.filter(p=>p.valid),qty=valid.reduce((a,p)=>a+p.quantidade,0);
+   const cost=valid.reduce((a,p)=>a+p.costTotal,0),value=valid.reduce((a,p)=>a+p.saleTotal,0);
+   const bad=data.filter(p=>!p.valid).length;
+   $('stockReportCount').textContent=data.length+(partial?'*':'');
+   $('stockReportUnits').textContent=qty.toLocaleString('pt-BR')+(bad?' (parcial)':'');
+   $('stockReportLow').textContent=data.filter(p=>p.valid&&p.ativo!==false&&p.quantidade<=p.estoque_minimo).length+(bad?' (parcial)':'');
+   $('stockReportCost').textContent=moneyCents(cost)+(bad?' (parcial)':'');
+   $('stockReportValue').textContent=moneyCents(value)+(bad?' (parcial)':'');
+   $('stockReportMargin').textContent=moneyCents(value-cost)+(bad?' (parcial)':'');
+   const tbody=$('stockReportRows');tbody.replaceChildren();
+   if(!data.length){const tr=document.createElement('tr'),td=asText('td','Nenhum produto encontrado.');td.colSpan=10;tr.append(td);tbody.append(tr)}
+   for(const p of data){const tr=document.createElement('tr');const cells=[p.nome||'—',p.codigo_barras||'—',p.categoria||'—',p.quantidade??'Inválido',p.estoque_minimo??'Inválido',p.valid?stockStatus(p):'Cadastro incompleto',p.preco_custo===null?'—':formatMoney(p.preco_custo),p.preco_venda===null?'—':formatMoney(p.preco_venda),p.valid?moneyCents(p.costTotal):'—',p.valid?moneyCents(p.saleTotal):'—'];for(const cell of cells)tr.append(asText('td',cell));tbody.append(tr)}
+   $('stockReportCSV').disabled=!data.length;
+   $('stockReportPrint').disabled=!data.length;
+   stockReportMessage((partial?'Limite de 10.000 produtos atingido: relatório possivelmente incompleto. ': '')+(bad?bad+' produto(s) têm dados numéricos inválidos ou ausentes: totais parciais. ':'')+'Relatório de estoque atualizado.',partial||bad?'error':'success');
+ }
+ async function loadStockReport(){
+   if(stockReportBusy||!accessReady||!currentShopId||!currentCanFinance||!client)return;
+   stockReportBusy=true;stockReportData=null;
+   for(const id of ['stockReportLoad','stockReportCSV','stockReportPrint'])$(id).disabled=true;
+   stockReportMessage('Consultando produtos da loja…');
+   try{
+     const all=[];let partial=false;
+     for(let offset=0;offset<10000;offset+=500){
+       const {data,error}=await client.from('produtos').select('id,nome,codigo_barras,categoria,quantidade,estoque_minimo,preco_custo,preco_venda,ativo').eq('loja_id',currentShopId).order('id',{ascending:true}).range(offset,offset+499);
+       if(error)throw error;
+       all.push(...(data||[]));
+       if((data||[]).length<500)break;
+       if(offset+500===10000)partial=true;
+     }
+     const enriched=all.map(p=>{
+       const quantidade=safeStockNumber(p.quantidade),estoque_minimo=safeStockNumber(p.estoque_minimo),preco_custo=safeStockNumber(p.preco_custo),preco_venda=safeStockNumber(p.preco_venda);
+       const valid=quantidade!==null&&estoque_minimo!==null&&preco_custo!==null&&preco_venda!==null&&Number.isSafeInteger(quantidade)&&Number.isSafeInteger(estoque_minimo);
+       return {...p,quantidade,estoque_minimo,preco_custo,preco_venda,valid,costTotal:valid?Math.round(preco_custo*100)*quantidade:0,saleTotal:valid?Math.round(preco_venda*100)*quantidade:0};
+     });
+     renderStockReport(enriched,partial);
+   }catch(e){stockReportMessage('Falha ao consultar estoque: '+(e?.message||'erro de leitura')+'. Confira permissões RLS.','error')}
+   finally{stockReportBusy=false;$('stockReportLoad').disabled=false}
+ }
+ $('stockReportLoad').addEventListener('click',loadStockReport);
+ $('stockReportCSV').addEventListener('click',()=>{
+   if(!stockReportData?.length||stockReportBusy)return;
+   const head=['Produto','Codigo','Categoria','Quantidade','Estoque minimo','Situacao','Custo unitario (R$)','Venda unitaria (R$)','Custo total (R$)','Valor potencial (R$)'];
+   const lines=[head,...stockReportData.map(p=>[p.nome,p.codigo_barras||'',p.categoria||'',p.quantidade??'Inválido',p.estoque_minimo??'Inválido',p.valid?stockStatus(p):'Cadastro incompleto',p.preco_custo===null?'':p.preco_custo.toFixed(2).replace('.',','),p.preco_venda===null?'':p.preco_venda.toFixed(2).replace('.',','),p.valid?reportOutputValue(p.costTotal):'',p.valid?reportOutputValue(p.saleTotal):''])];
+   if(stockReportPartial)lines.push(['ATENÇÃO: limite de 10.000 produtos atingido - dados parciais']);
+   const csv='\ufeff'+lines.map(row=>row.map(csvCell).join(';')).join('\r\n');
+   const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='conecta-pdv-relatorio-estoque-'+localDateString(new Date())+'.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ });
+ $('stockReportPrint').addEventListener('click',()=>{if(stockReportData?.length&&!stockReportBusy)window.print()});
+
+ // CAIXA: operações pelo RPC autorizado; nunca escrever diretamente nas tabelas de caixa.
+ function cashMessage(message,kind=''){const el=$('cashNotice');el.className='pdv-alert'+(kind?' '+kind:'');el.textContent=message;el.classList.toggle('hidden',!message)}
+ const cashDate=new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short'});
+ const cashCents=value=>Number.isFinite(Number(value))?Math.round(Number(value)*100):NaN;
+ function validCashAmount(value,zeroAllowed=false){const n=Number(value);return value!==''&&Number.isFinite(n)&&n>=(zeroAllowed?0:0.01)&&n<=9999999999.99&&Math.abs(n*100-Math.round(n*100))<0.000001}
+ function cashLock(state){for(const id of ['cashOpenButton','cashMoveButton','cashCloseButton','cashReload'])$(id).disabled=state}
+ async function loadCash(){
+  if(!client||!accessReady||!currentShopId||cashBusy)return;
+  cashBusy=true;cashLock(true);cashMessage('Consultando o caixa no Supabase...');
+  try{
+   const {data,error}=await client.from('caixas').select('id,loja_id,funcionario_id,saldo_inicial,status,aberto_em').eq('loja_id',currentShopId).eq('status','aberto').limit(2);
+   if(error)throw error;
+   if((data||[]).length>1)throw new Error('Há mais de um caixa aberto: verifique os dados no Supabase.');
+   openCash=data?.[0]||null;currentCashComputed=null;
+   $('cashClosed').classList.toggle('hidden',!!openCash);$('cashOpened').classList.toggle('hidden',!openCash);
+   if(!openCash){cashMessage('Nenhum caixa aberto. Pode iniciar um caixa de teste com saldo inicial de R$ 0,00.','success');return}
+   $('cashHeading').textContent='Caixa aberto — '+String(openCash.id).slice(0,8);
+   $('cashStartValue').textContent=formatMoney(openCash.saldo_inicial);
+   $('cashStartedAt').textContent=cashDate.format(new Date(openCash.aberto_em));
+   // Valores lidos no servidor após validar o vínculo e a permissão da loja.
+   // Uma resposta incompleta não deve aparecer como saldo zero.
+   const {data:resumo,error:resumoErro}=await client.rpc('consultar_resumo_caixa',{p_caixa_id:openCash.id});
+   if(resumoErro)throw resumoErro;
+   if(!resumo || !Array.isArray(resumo.movimentacoes) ||
+      !['entradas','saidas','dinheiro_vendas'].every(k=>resumo[k]!==null&&resumo[k]!==undefined)) {
+     throw new Error('O resumo do caixa não foi devolvido corretamente pelo servidor.');
+   }
+   const cashSales=cashCents(resumo.dinheiro_vendas);
+   const inflow=cashCents(resumo.entradas);
+   const outflow=cashCents(resumo.saidas);
+   if(![cashSales,inflow,outflow].every(Number.isFinite))throw new Error('Resumo com valores inválidos.');
+   const expected=cashCents(openCash.saldo_inicial)+cashSales+inflow-outflow;
+   currentCashComputed=expected;
+   $('cashSalesValue').textContent=moneyCents(cashSales);
+   $('cashInValue').textContent=moneyCents(inflow);
+   $('cashOutValue').textContent=moneyCents(outflow);
+   $('cashExpectedValue').textContent=moneyCents(expected);
+   $('cashCoverage').textContent='Conferência informativa: saldo inicial + recebimentos em dinheiro + entradas − saídas. PIX e cartão não entram no dinheiro físico.';
+   const wrap=$('cashMovements');wrap.replaceChildren();
+   const moves=resumo.movimentacoes;
+   if(!moves.length)wrap.append(asText('p','Nenhuma movimentação manual neste caixa.'));
+   for(const m of moves){const row=document.createElement('div');row.className='cash-row';row.append(asText('span',cashDate.format(new Date(m.criado_em))+' • '+(m.tipo==='entrada'?'Entrada':'Saída')+' • '+m.descricao),asText('strong',formatMoney(m.valor)));wrap.append(row)}
+   cashMessage('Caixa atualizado.','success');
+  }catch(err){cashMessage('Erro ao consultar caixa: '+(err?.message||'Falha desconhecida')+'. Os valores não foram atualizados; não feche o caixa antes de conferir.','error');$('cashClosed').classList.add('hidden');$('cashOpened').classList.add('hidden');openCash=null;currentCashComputed=null}
+  finally{cashBusy=false;cashLock(false)}
+ }
+ async function callCash(fn,args,success){if(cashBusy)return;cashBusy=true;cashLock(true);cashMessage('A guardar operação no Supabase...');try{const {data,error}=await client.rpc(fn,args);if(error)throw error;if(!data)throw new Error('Servidor não confirmou a operação. Consulte o Supabase antes de tentar novamente.');cashMessage(success,'success');return true}catch(err){cashMessage('Operação não concluída: '+(err?.message||'Erro de comunicação')+'. Em caso de falha de rede, consulte os registos antes de repetir.','error');return false}finally{cashBusy=false;cashLock(false)}}
+ $('cashReload').addEventListener('click',loadCash);
+ $('cashOpenForm').addEventListener('submit',async e=>{e.preventDefault();if(!accessReady||!currentShopId||openCash)return;const raw=$('cashInitial').value;if(!validCashAmount(raw,true)){cashMessage('Informe um saldo inicial válido.','error');return}if(!confirm('Abrir um caixa de TESTE com saldo inicial de '+formatMoney(raw)+'? A operação será gravada no Supabase.'))return;const ok=await callCash('abrir_caixa',{p_loja_id:currentShopId,p_saldo_inicial:Number(raw)},'Caixa aberto com sucesso.');if(ok)await loadCash()});
+ $('cashMoveForm').addEventListener('submit',async e=>{e.preventDefault();if(!openCash)return;const tipo=$('cashMoveType').value,desc=$('cashMoveDescription').value.trim(),raw=$('cashMoveValue').value;if(!['entrada','saida'].includes(tipo)||!desc||desc.length>200||!validCashAmount(raw)){cashMessage('Confira o tipo, a descrição e o valor da movimentação.','error');return}if(!confirm('Registrar '+tipo+' de '+formatMoney(raw)+' no caixa de teste?'))return;const ok=await callCash('movimentar_caixa',{p_caixa_id:openCash.id,p_tipo:tipo,p_descricao:desc,p_valor:Number(raw)},'Movimentação registrada.');if(ok){$('cashMoveForm').reset();await loadCash()}});
+ $('cashCloseForm').addEventListener('submit',async e=>{e.preventDefault();if(!openCash)return;const raw=$('cashFinalValue').value;if(!validCashAmount(raw,true)){cashMessage('Informe o valor contado em dinheiro.','error');return}const info=currentCashComputed===null?'Saldo esperado indisponível; confira os valores no Supabase antes de fechar.':'Saldo esperado aproximado: '+moneyCents(currentCashComputed)+'.';if(!confirm('ATENÇÃO: deseja FECHAR definitivamente este caixa de teste? Dinheiro contado: '+formatMoney(raw)+'. '+info))return;const ok=await callCash('fechar_caixa',{p_caixa_id:openCash.id,p_saldo_final:Number(raw)},'Caixa fechado e valor contado registrado.');if(ok){$('cashCloseForm').reset();await loadCash()}});
+
+ $('historyFilter').addEventListener('click',loadHistory);
+ $('reloadHistory').addEventListener('click',loadHistory);
+
+
+
+ // Relatório financeiro — consultas somente leitura às contas vinculadas à loja.
+ let financialReportBusy=false,financialReportData=null,financialReportPartial=false;
+ const financialMoney=v=>formatMoney(v/100);
+ const financialCents=v=>v!==null&&v!==''&&Number.isFinite(Number(v))?Math.round(Number(v)*100):null;
+ function financialReportMessage(msg,type=''){
+   const el=$('financialReportNotice');el.textContent=msg;el.className='pdv-alert'+(type?' '+type:'');el.classList.toggle('hidden',!msg);
+ }
+ function financialReportStatus(row,todayDate){
+   if(row.open===0)return 'Quitada';
+   if(row.vencimento<todayDate)return 'Atrasada';
+   return row.paid>0?'Parcial':'Em aberto';
+ }
+ function renderFinancialReport(rows,partial,invalid){
+   financialReportData=rows;financialReportPartial=partial;
+   const todayDate=localDateString(new Date());
+   const receivables=rows.filter(r=>r.tipo==='receber');
+   const payables=rows.filter(r=>r.tipo==='pagar');
+   const sum=(list,key)=>list.reduce((a,r)=>a+r[key],0);
+   const rOpen=sum(receivables,'open'),pOpen=sum(payables,'open');
+   const rOver=sum(receivables.filter(r=>r.open>0&&r.vencimento<todayDate),'open');
+   const pOver=sum(payables.filter(r=>r.open>0&&r.vencimento<todayDate),'open');
+   for(const [id,value] of [['financialReceivable',financialMoney(rOpen)],['financialPayable',financialMoney(pOpen)],['financialReceiveOverdue',financialMoney(rOver)],['financialPayOverdue',financialMoney(pOver)],['financialReceived',financialMoney(sum(receivables,'paid'))],['financialPaid',financialMoney(sum(payables,'paid'))],['financialForecast',financialMoney(rOpen-pOpen)],['financialCount',String(rows.length)]])$(id).textContent=value+(partial?'*':'');
+   const body=$('financialReportRows');body.replaceChildren();
+   if(!rows.length){const tr=document.createElement('tr');const cell=asText('td','Nenhuma conta encontrada no período de vencimento.');cell.colSpan=9;tr.append(cell);body.append(tr)}
+   for(const r of rows){
+      const tr=document.createElement('tr');
+      const installment=r.total_parcelas>1?String(r.numero_parcela)+'/'+String(r.total_parcelas):'Única';
+      for(const value of [r.tipo==='receber'?'A receber':'A pagar',r.vencimento.split('-').reverse().join('/'),r.parte||'—',r.descricao||'—',installment,financialMoney(r.total),financialMoney(r.paid),financialMoney(r.open),financialReportStatus(r,todayDate)])tr.append(asText('td',value));
+      body.append(tr);
+   }
+   $('financialReportCSV').disabled=partial||!!invalid;
+   $('financialReportPrint').disabled=partial||!!invalid;
+   financialReportMessage((partial?'Limite de 10.000 contas atingido: valores incompletos. Reduza o intervalo de vencimento. ': '')+(invalid?invalid+' conta(s) com valores ou vencimentos inválidos não foram somadas. ':'')+'Relatório financeiro consultado.',partial||invalid?'error':'success');
+ }
+ async function loadFinancialReport(){
+   if(financialReportBusy||!accessReady||!currentShopId||!currentCanFinance||!client)return;
+   const from=$('financialReportStart').value,to=$('financialReportEnd').value;
+   if(from&&to&&from>to){financialReportMessage('Data inicial posterior à data final.','error');return}
+   financialReportBusy=true;financialReportData=null;
+   for(const id of ['financialReportLoad','financialReportCSV','financialReportPrint'])$(id).disabled=true;
+   financialReportMessage('Consultando contas da loja no Supabase…');
+   try{
+      const all=[];let partial=false;
+      for(let offset=0;offset<10000;offset+=1000){
+         let query=client.from('financeiro_contas').select('id,loja_id,tipo,parte,descricao,valor_total,valor_pago,vencimento,numero_parcela,total_parcelas').eq('loja_id',currentShopId).in('tipo',['receber','pagar']).order('vencimento',{ascending:true}).order('id',{ascending:true}).range(offset,offset+999);
+         if(from)query=query.gte('vencimento',from);
+         if(to)query=query.lte('vencimento',to);
+         const {data,error}=await query;if(error)throw error;
+         all.push(...(data||[]));if((data||[]).length<1000)break;
+         if(offset===9000)partial=true;
+      }
+      const valid=[],invalid=[];
+      for(const r of all){
+        const total=financialCents(r.valor_total),paid=financialCents(r.valor_pago);
+        if(total===null||paid===null||total<0||paid<0||paid>total||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(String(r.vencimento||''))){invalid.push(r);continue}
+        valid.push({...r,total,paid,open:total-paid});
+      }
+      renderFinancialReport(valid,partial,invalid.length);
+   }catch(e){financialReportData=null;financialReportMessage('Erro ao consultar contas: '+(e?.message||'erro de leitura')+'. Confira a permissão RLS da loja.','error')}
+   finally{financialReportBusy=false;$('financialReportLoad').disabled=false}
+ }
+ $('financialReportLoad').addEventListener('click',loadFinancialReport);
+ $('financialReportCSV').addEventListener('click',()=>{
+   if(!financialReportData||financialReportPartial||financialReportBusy)return;
+   const todayDate=localDateString(new Date());
+   const head=['Tipo','Vencimento','Cliente ou fornecedor','Descrição','Parcela','Total (R$)','Baixado (R$)','Em aberto (R$)','Situação'];
+   const rows=financialReportData.map(r=>[r.tipo==='receber'?'A receber':'A pagar',r.vencimento.split('-').reverse().join('/'),r.parte||'',r.descricao||'',r.total_parcelas>1?String(r.numero_parcela)+'/'+String(r.total_parcelas):'Única',reportOutputValue(r.total),reportOutputValue(r.paid),reportOutputValue(r.open),financialReportStatus(r,todayDate)]);
+   const csv='\ufeff'+[head,...rows].map(row=>row.map(csvCell).join(';')).join('\r\n');
+   const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='conecta-pdv-relatorio-financeiro-'+todayDate+'.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ });
+ $('financialReportPrint').addEventListener('click',()=>{if(financialReportData&&!financialReportBusy&&!financialReportPartial)window.print()});
+
+ // Gestão financeira: operações atômicas são feitas exclusivamente no servidor.
+ let finType='receber',finRows=[],finBusy=false;
+ const finNotice=(msg,type='')=>{const e=$('financeNotice');e.textContent=msg;e.className='pdv-alert'+(type?' '+type:'');e.classList.toggle('hidden',!msg)};
+ const finMoney=(n)=>formatMoney(n);
+ const finValid=(v)=>{const n=Number(v);return String(v).trim()!==''&&Number.isFinite(n)&&n>0&&n<=9999999999.99&&Math.abs(n*100-Math.round(n*100))<.000001};
+ const finToday=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+ function finLock(locked){finBusy=locked;for(const id of ['finSave','financeReload'])$(id).disabled=locked}
+ async function loadFinance(type=finType){
+   if(!client||!accessReady||!currentShopId||!currentCanFinance||finBusy)return;
+   finType=type;$('financeTitle').textContent=type==='receber'?'Contas a receber':'Contas a pagar';$('financeFormTitle').textContent=type==='receber'?'Cadastrar recebimento futuro':'Cadastrar despesa';$('financePartyLabel').firstChild.textContent=type==='receber'?'Cliente *':'Fornecedor *';
+   if(!$('finDue').value)$('finDue').value=finToday();finLock(true);finNotice('Buscando contas no Supabase…');
+   try{const {data,error}=await client.from('financeiro_contas').select('id,loja_id,tipo,parte,descricao,valor_total,valor_pago,vencimento,grupo_id,numero_parcela,total_parcelas,criado_em').eq('loja_id',currentShopId).eq('tipo',type).order('vencimento',{ascending:true}).limit(1000);if(error)throw error;finRows=data||[];renderFinance();finNotice(finRows.length===1000?'Exibindo as primeiras 1.000 contas. Refine o período em versão futura.':'Contas atualizadas.','success')}
+   catch(e){finNotice('Não foi possível consultar: '+(e?.message||'erro de acesso')+'. Confira se o SQL foi instalado e as permissões RLS.','error');finRows=[];renderFinance()}
+   finally{finLock(false)}
+ }
+ function renderFinance(){
+   const today=finToday(),list=$('financeList'),filter=$('finFilter').value;list.replaceChildren();
+   const rem=r=>Math.max(0,Math.round(Number(r.valor_total)*100)-Math.round(Number(r.valor_pago)*100));
+   const total=finRows.reduce((s,r)=>s+rem(r),0),overdue=finRows.filter(r=>r.vencimento<today).reduce((s,r)=>s+rem(r),0),paid=finRows.reduce((s,r)=>s+Math.round(Number(r.valor_pago)*100),0);
+   $('finOpen').textContent=formatMoney(total/100);$('finOverdue').textContent=formatMoney(overdue/100);$('finPaid').textContent=formatMoney(paid/100);$('finCount').textContent=String(finRows.length);
+   const filtered=finRows.filter(r=>filter==='todas'||filter==='abertas'&&rem(r)>0||filter==='atrasadas'&&rem(r)>0&&r.vencimento<today||filter==='quitadas'&&rem(r)===0);
+   if(!filtered.length){list.append(asText('div','Nenhuma conta encontrada.'));return}
+   for(const r of filtered){const outstanding=rem(r),card=document.createElement('article');card.className='history-entry';
+     const top=document.createElement('div');top.className='history-heading';const left=document.createElement('div');left.append(asText('strong',r.parte+' — '+r.descricao),asText('small','Vencimento: '+r.vencimento.split('-').reverse().join('/')+' • Parcela '+r.numero_parcela+'/'+r.total_parcelas));
+     const right=document.createElement('div');right.append(asText('strong','Saldo: '+finMoney(outstanding/100)),asText('small','Total: '+finMoney(r.valor_total)+' • Pago: '+finMoney(r.valor_pago)));top.append(left,right);card.append(top);
+     const tag=asText('span',outstanding===0?'Quitada':r.vencimento<today?'Atrasada':'Em aberto');tag.className='pdv-chip'+(outstanding>0&&r.vencimento<today?' low':'');card.append(tag);
+     if(outstanding>0){const b=asText('button',finType==='receber'?'Registrar recebimento':'Registrar pagamento');b.type='button';b.className='pdv-primary';b.style.margin='10px 0 0';b.disabled=finBusy;b.addEventListener('click',()=>settleFinance(r,outstanding));card.append(b)}
+     const history=asText('button','Ver histórico de baixas');history.className='pdv-secondary';history.style.margin='10px';history.addEventListener('click',async()=>{history.disabled=true;try{const {data,error}=await client.from('financeiro_baixas').select('valor,forma,criado_em').eq('conta_id',r.id).eq('loja_id',currentShopId).order('criado_em',{ascending:false}).limit(100);if(error)throw error;const detail=document.createElement('div');detail.className='history-detail';detail.append(asText('strong','Histórico de baixas'));for(const x of data||[])detail.append(asText('p',new Date(x.criado_em).toLocaleString('pt-BR')+' • '+x.forma+' • '+finMoney(x.valor)));if(!(data||[]).length)detail.append(asText('p','Nenhuma baixa registrada.'));card.append(detail);history.remove()}catch(e){finNotice('Falha no histórico: '+e.message,'error');history.disabled=false}});card.append(history);list.append(card)
+   }
+ }
+ $('financeReload').addEventListener('click',()=>loadFinance());$('finFilter').addEventListener('change',renderFinance);
+ $('financeForm').addEventListener('submit',async e=>{
+  e.preventDefault();if(finBusy||!accessReady||!currentCanFinance||!currentShopId)return;
+  const parte=$('finParty').value.trim(),descricao=$('finDescription').value.trim(),valor=$('finAmount').value,vencimento=$('finDue').value,parcelas=Number($('finInstallments').value);
+  if(!parte||!descricao||!finValid(valor)||!/^\d{4}-\d{2}-\d{2}$/.test(vencimento)||!Number.isInteger(parcelas)||parcelas<1||parcelas>36){finNotice('Confira os dados, o valor e a quantidade de parcelas.','error');return}
+  if(!confirm('Criar '+parcelas+' parcela(s) de '+finMoney(valor)+' no módulo '+finType+'? Confirme que ainda não estão cadastradas.'))return;
+  finLock(true);finNotice('Salvando conta no servidor…');let ok=false;
+  try{const {data,error}=await client.rpc('financeiro_criar_conta',{p_loja_id:currentShopId,p_tipo:finType,p_parte:parte,p_descricao:descricao,p_total:Number(valor),p_vencimento:vencimento,p_parcelas:parcelas});if(error)throw error;if(!data)throw new Error('Servidor não confirmou o cadastro. Confira antes de repetir.');ok=true;$('financeForm').reset();finNotice('Conta cadastrada.','success')}
+  catch(err){finNotice('Cadastro não confirmado: '+(err.message||'erro')+'. Consulte a lista antes de repetir.','error')}
+  finally{finLock(false)}if(ok)await loadFinance();
+ });
+ async function settleFinance(r,outstanding){
+  if(finBusy||!currentCanFinance)return;
+  const raw=prompt('Valor da baixa em R$ (saldo '+finMoney(outstanding/100)+'):',(outstanding/100).toFixed(2));if(raw===null)return;
+  const normalized=raw.trim().replace(',','.');if(!finValid(normalized)||Math.round(Number(normalized)*100)>outstanding){finNotice('Valor inválido ou maior que o saldo pendente.','error');return}
+  const form=prompt('Forma: dinheiro, pix, cartao, transferencia ou outro','dinheiro');if(form===null)return;const forma=form.trim().toLowerCase();if(!['dinheiro','pix','cartao','transferencia','outro'].includes(forma)){finNotice('Forma de pagamento inválida.','error');return}
+  if(!confirm('Confirmar '+(finType==='receber'?'recebimento':'pagamento')+' de '+finMoney(normalized)+' via '+forma+'? A operação não poderá ser desfeita nesta tela.'))return;
+  finLock(true);finNotice('Registrando baixa no servidor…');let ok=false;
+  try{const {data,error}=await client.rpc('financeiro_baixar_conta',{p_conta_id:r.id,p_valor:Number(normalized),p_forma:forma});if(error)throw error;if(!data)throw new Error('Servidor não confirmou. Consulte o histórico antes de repetir.');ok=true;finNotice('Baixa confirmada no Supabase.','success')}
+  catch(err){finNotice('Baixa não confirmada: '+(err.message||'erro')+'. Consulte o histórico antes de tentar novamente.','error')}
+  finally{finLock(false)}if(ok){await loadFinance();if(forma==='dinheiro'&&openCash)await loadCash()}
+ }
+
+ $('newProductButton').addEventListener('click',()=>openProductForm());$('cancelProductButton').addEventListener('click',closeProductForm);$('productForm').addEventListener('submit',saveProduct);$('reloadProductsButton').addEventListener('click',loadProducts);$('productSearch').addEventListener('input',renderProducts);
+$('saveConfig').addEventListener('click',async()=>{const u=$('projectUrl').value.trim().replace(/\/$/,'');const k=$('publicKey').value.trim();if(!validUrl(u)||!validKey(k)){status('Verifique o endereço do projeto e a chave sb_publishable_. Não introduza chaves secretas.','error');return}localStorage.setItem('conecta_pdv_url',u);localStorage.setItem('conecta_pdv_publishable',k);if(createClient()){status('Ligação pública configurada.');$('configDetails').open=false;await refresh()}});
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();if(!client&& !createClient())return;const btn=$('loginButton');btn.disabled=true;status('A verificar suas credenciais…');try{const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;$('password').value='';await refresh()}catch(err){status('Não foi possível entrar: '+(err?.message||'erro desconhecido'),'error')}finally{btn.disabled=false}});
+$('dashboardLogout').addEventListener('click',async()=>{if(!client)return;const {error}=await client.auth.signOut();if(error){dashMessage('Erro ao sair: '+error.message,'error');return}await refresh()});
+document.querySelectorAll('#dashNav [data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.jump)));
+$('logoutButton').addEventListener('click',async()=>{if(!client)return;const {error}=await client.auth.signOut();if(error){status('Erro ao sair: '+error.message,'error');return}await refresh()});
+if(createClient())refresh();
+})();
+</script>
+<script>
+/* Catálogo público: registro seguro pela Edge Function. Compra permanece bloqueada no backend até a ativação e testes. */
+(()=>{
+ 'use strict';
+ const params=new URLSearchParams(location.search);
+ if(params.get('catalogo')!=='1')return;
+ const shopId=params.get('loja')||'';
+ const endpoint='https://zfcwmakztfwtmocgllac.supabase.co/functions/v1/catalogo-publico';
+ const checkoutEndpoint='https://zfcwmakztfwtmocgllac.supabase.co/functions/v1/pedido-whatsapp';
+ const $=id=>document.getElementById(id);
+ const money=v=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v)||0);
+ const state={products:[],cart:new Map(),whatsapp:'',shopName:'Loja',busy:false,requestKey:null,requestFingerprint:null};
+ const digits=x=>String(x||'').replace(/\D/g,'');
+ function notice(t,bad=false){const el=$('publicCatalogStatus');el.textContent=t;el.className='pdv-alert'+(bad?' error':'')}
+ function make(tag,text){const e=document.createElement(tag);if(text!==undefined)e.textContent=String(text);return e}
+ function cartTotal(){return [...state.cart].reduce((sum,[id,q])=>{const p=state.products.find(x=>x.id===id);return sum+(p?Math.round(p.price*100)*q:0)},0)}
+ function renderCart(){
+  const wrap=$('publicCart');wrap.replaceChildren();
+  if(!state.cart.size)wrap.append(make('p','O carrinho está vazio.'));
+  for(const [id,q] of state.cart){const p=state.products.find(x=>x.id===id);if(!p)continue;
+   const row=make('div');row.className='sale-result';
+   const desc=make('div');desc.append(make('strong',p.name),make('small',q+' × '+money(p.price)+' = '+money(p.price*q)));
+   const tools=make('div');tools.className='catalog-cart-tools';
+   const minus=make('button','−');minus.type='button';minus.setAttribute('aria-label','Diminuir '+p.name);minus.onclick=()=>{if(q===1)state.cart.delete(id);else state.cart.set(id,q-1);renderCart()};
+   const plus=make('button','+');plus.type='button';plus.disabled=q>=p.stock;plus.setAttribute('aria-label','Aumentar '+p.name);plus.onclick=()=>{state.cart.set(id,q+1);renderCart()};
+   tools.append(minus,make('b',q),plus);row.append(desc,tools);wrap.append(row);
+  }
+  $('publicTotal').textContent=money(cartTotal()/100);
+  $('sendWhatsappOrder').disabled=!state.cart.size||state.busy;
+ }
+ function renderProducts(){
+  const term=$('publicSearch').value.trim().toLocaleLowerCase('pt-BR');const wrap=$('publicProducts');wrap.replaceChildren();
+  const list=state.products.filter(p=>(p.name+' '+p.category).toLocaleLowerCase('pt-BR').includes(term));
+  if(!list.length)wrap.append(make('p','Nenhum produto disponível para essa pesquisa.'));
+  for(const p of list){const card=make('article');card.className='catalog-card';
+   const art=make('div','▣');art.className='catalog-glyph';const price=make('span',money(p.price));price.className='price';
+   const btn=make('button',p.stock>0?'Adicionar ao carrinho':'Indisponível');btn.type='button';btn.className='pdv-primary';btn.disabled=p.stock<1;
+   btn.onclick=()=>{const q=state.cart.get(p.id)||0;if(q>=p.stock){notice('Quantidade indisponível no estoque atual.',true);return}state.cart.set(p.id,q+1);renderCart();notice('Produto adicionado. Confira o carrinho abaixo.')};
+   card.append(art,make('strong',p.name),make('small',p.category||'Produto'),price,make('small',p.stock>0?'Disponível: '+p.stock:'Sem estoque'),btn);wrap.append(card);
+  }
+ }
+ async function load(){
+  if(!/^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(shopId)){notice('Endereço de loja inválido. Abra o catálogo a partir do painel.',true);return}
+  try{
+   const res=await fetch(endpoint+'?loja_id='+encodeURIComponent(shopId),{cache:'no-store',signal:AbortSignal.timeout(12000)});
+   if(!res.ok)throw new Error('Catálogo indisponível (HTTP '+res.status+').');
+   const data=await res.json();
+   const raw=Array.isArray(data)?data:Array.isArray(data.produtos)?data.produtos:Array.isArray(data.products)?data.products:[];
+   const loja=data.loja&&typeof data.loja==='object'?data.loja:{};
+   state.shopName=String(data.loja_nome||loja.nome||data.nome_loja||'Loja').slice(0,120);
+   state.whatsapp=digits(data.loja_whatsapp||loja.whatsapp||data.whatsapp||'');
+   state.products=raw.map(p=>({id:String(p.id||''),name:String(p.nome||p.name||'Produto'),category:String(p.categoria||''),price:Number(p.preco_venda??p.preco??p.price),stock:Math.max(0,Math.floor(Number(p.quantidade??p.estoque??p.stock??0)))}))
+    .filter(p=>/^[0-9a-f-]{36}$/i.test(p.id)&&Number.isFinite(p.price)&&p.price>0);
+   $('publicStoreName').textContent=state.shopName;
+   notice(state.whatsapp?'Escolha os produtos e envie o pedido pelo WhatsApp.':'Esta loja ainda não tem WhatsApp cadastrado. Solicite à loja que configure o número no Supabase.',!state.whatsapp);
+   renderProducts();renderCart();
+  }catch(e){notice('Não foi possível carregar os produtos: '+(e?.message||'Erro de rede')+'.',true)}
+ }
+ $('publicSearch').addEventListener('input',renderProducts);
+ // Reutilizar a chave apenas em repetição do mesmo pedido (ex.: falha de rede).
+ $('sendWhatsappOrder').addEventListener('click',async()=>{
+  if(state.busy)return;
+  const name=$('buyerName').value.trim(),phone=digits($('buyerPhone').value);
+  const message=$('publicOrderMessage');message.classList.remove('hidden');
+  if(!state.cart.size){message.textContent='Adicione um produto ao carrinho.';return}
+  if(name.length<3||phone.length<10||phone.length>13){message.textContent='Informe seu nome e WhatsApp com DDD.';return}
+  if(!state.whatsapp||state.whatsapp.length<10||state.whatsapp.length>13){message.textContent='WhatsApp da loja não cadastrado.';return}
+  if([...state.cart].some(([id,q])=>{const p=state.products.find(x=>x.id===id);return !p||q>p.stock})){message.textContent='Atualize o catálogo: há itens indisponíveis.';return}
+  if(!globalThis.crypto?.randomUUID){message.textContent='Este navegador precisa de conexão segura (HTTPS) para finalizar pedidos.';return}
+  const itens=[...state.cart].map(([produto_id,quantidade])=>({produto_id,quantidade})).sort((a,b)=>a.produto_id.localeCompare(b.produto_id));
+  const fingerprint=JSON.stringify({name,phone,itens});
+  if(state.requestFingerprint!==fingerprint){state.requestFingerprint=fingerprint;state.requestKey=crypto.randomUUID()}
+  // Abrir uma guia no clique, para impedir bloqueio de pop-up após o await.
+  const popup=window.open('about:blank','_blank');
+  if(popup){popup.document.title='Aguardando registro do pedido';popup.document.body.textContent='Registrando seu pedido com segurança. Aguarde…'}
+  state.busy=true;renderCart();message.textContent='Registrando o pedido e reservando o estoque no Supabase…';
+  try{
+   const res=await fetch(checkoutEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({loja_id:shopId,cliente_nome:name,cliente_telefone:phone,itens,chave_idempotencia:state.requestKey}),cache:'no-store',signal:AbortSignal.timeout(15000)});
+   const data=await res.json().catch(()=>({}));
+   if(!res.ok||!data.whatsapp_url||!data.pedido_id)throw new Error(data.mensagem||data.erro||'Checkout indisponível (HTTP '+res.status+').');
+   if(!/^https:\/\/wa\.me\/[0-9]+\?text=/.test(data.whatsapp_url))throw new Error('Endereço de WhatsApp inválido.');
+   const url=data.whatsapp_url;
+   if(popup)popup.location.href=url;
+   const anchor=document.createElement('a');anchor.href=url;anchor.target='_blank';anchor.rel='noopener noreferrer';anchor.textContent='Abrir mensagem no WhatsApp';anchor.style.display='block';anchor.style.marginTop='8px';
+   message.replaceChildren(document.createTextNode('Pedido '+data.pedido_id+' registrado no Supabase. Reserva temporária: até 15 minutos. Envie a mensagem no WhatsApp; o pagamento está pendente. O envio não é confirmado automaticamente.'),anchor);
+  }catch(e){if(popup&&!popup.closed)popup.close();message.textContent='Pedido não concluído: '+(e?.message||'falha de comunicação')+'. Nenhum pagamento foi processado. Se houve falha de rede, tente novamente com o mesmo carrinho para recuperar o pedido, sem duplicá-lo.'}
+  finally{state.busy=false;renderCart()}
+ });
+ load();
+})();
+</script>
+</body></html>
